@@ -4,20 +4,11 @@ import 'package:path/path.dart' show dirname, join, normalize;
 import 'package:test/test.dart';
 import './generated/sample_private.dart';
 
-String _scriptPath() {
-  var script = Platform.script.toString();
-  if (script.startsWith('file://')) {
-    script = script.substring(7);
-  } else {
-    final idx = script.indexOf('file:/');
-    script = script.substring(idx + 5);
-  }
-  return script;
-}
+import 'utils.dart';
 
 void main() {
   group('model-generator', () {
-    final currentDirectory = dirname(_scriptPath());
+    final currentDirectory = dirname(thisScriptPath());
     test('Generated class with private fields should correctly parse JSON', () {
       final jsonPath = normalize(join(currentDirectory, 'test.json'));
       final jsonRawData = File(jsonPath).readAsStringSync();

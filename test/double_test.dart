@@ -6,20 +6,11 @@ import 'package:test/test.dart';
 import 'package:json_to_dart/model_generator.dart';
 import 'package:json_to_dart/helpers.dart' show isASTLiteralDouble;
 
-String _scriptPath() {
-  var script = Platform.script.toString();
-  if (script.startsWith('file://')) {
-    script = script.substring(7);
-  } else {
-    final idx = script.indexOf('file:/');
-    script = script.substring(idx + 5);
-  }
-  return script;
-}
+import 'utils.dart';
 
 void main() {
   group('Should identify doubles and ints', () {
-    final currentDirectory = dirname(_scriptPath());
+    final currentDirectory = dirname(thisScriptPath());
 
     test('should parse literals correctly', () {
       expect(isASTLiteralDouble(LiteralNode(1, '1')), isFalse);

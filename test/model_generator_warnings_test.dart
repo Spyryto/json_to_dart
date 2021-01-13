@@ -3,20 +3,11 @@ import 'package:json_to_dart/model_generator.dart';
 import 'package:path/path.dart' show dirname, join, normalize;
 import 'package:test/test.dart';
 
-String _scriptPath() {
-  var script = Platform.script.toString();
-  if (script.startsWith('file://')) {
-    script = script.substring(7);
-  } else {
-    final idx = script.indexOf('file:/');
-    script = script.substring(idx + 5);
-  }
-  return script;
-}
+import 'utils.dart';
 
 void main() {
   group('model-generator-with-warnings', () {
-    final currentDirectory = dirname(_scriptPath());
+    final currentDirectory = dirname(thisScriptPath());
     test('should generate proper warnings', () {
       final jsonPath = normalize(join(currentDirectory, 'test_warnings.json'));
       final jsonRawData = File(jsonPath).readAsStringSync();

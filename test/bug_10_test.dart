@@ -6,20 +6,11 @@ import 'package:test/test.dart';
 import 'package:json_to_dart/json_to_dart.dart' show ModelGenerator;
 import './generated/bug_ten.dart';
 
-String _scriptPath() {
-  var script = Platform.script.toString();
-  if (script.startsWith('file://')) {
-    script = script.substring(7);
-  } else {
-    final idx = script.indexOf('file:/');
-    script = script.substring(idx + 5);
-  }
-  return script;
-}
+import 'utils.dart';
 
 void main() {
   group('model-generator', () {
-    final currentDirectory = dirname(_scriptPath());
+    final currentDirectory = dirname(thisScriptPath());
 
     test('Should generate the classes to parse the JSON', () {
       final jsonPath = normalize(join(currentDirectory, 'bug_10.json'));
