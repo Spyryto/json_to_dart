@@ -8,89 +8,89 @@ import './generated/bug_ten.dart';
 
 String _scriptPath() {
   var script = Platform.script.toString();
-  if (script.startsWith("file://")) {
+  if (script.startsWith('file://')) {
     script = script.substring(7);
   } else {
-    final idx = script.indexOf("file:/");
+    final idx = script.indexOf('file:/');
     script = script.substring(idx + 5);
   }
   return script;
 }
 
 void main() {
-  group("model-generator", () {
+  group('model-generator', () {
     final currentDirectory = dirname(_scriptPath());
 
-    test("Should generate the classes to parse the JSON", () {
+    test('Should generate the classes to parse the JSON', () {
       final jsonPath = normalize(join(currentDirectory, 'bug_10.json'));
-      final jsonRawData = new File(jsonPath).readAsStringSync();
+      final jsonRawData = File(jsonPath).readAsStringSync();
       final generator = ModelGenerator('BugTen');
       final dartCode = generator.generateDartClasses(jsonRawData);
       expect(dartCode.warnings.length, equals(0));
       expect(dartCode.code.contains('class GlossDiv'), equals(true));
     });
 
-    test("Generated class should correctly parse JSON for bug 10", () {
+    test('Generated class should correctly parse JSON for bug 10', () {
       final jsonPath = normalize(join(currentDirectory, 'bug_10.json'));
-      final jsonRawData = new File(jsonPath).readAsStringSync();
+      final jsonRawData = File(jsonPath).readAsStringSync();
       Map sampleMap = json.decode(jsonRawData);
-      final bugTen = new BugTen.fromJson(sampleMap);
+      final bugTen = BugTen.fromJson(sampleMap);
       expect(bugTen, isNot(isNull));
       expect(bugTen.glossary, isNot(isNull));
       expect(bugTen.glossary.title, equals('example glossary'));
       expect(bugTen.glossary.glossDiv, isNot(isNull));
-      expect(bugTen.glossary.glossDiv.title, equals("S"));
+      expect(bugTen.glossary.glossDiv.title, equals('S'));
       expect(bugTen.glossary.glossDiv.glossList, isNot(isNull));
       final ge = bugTen.glossary.glossDiv.glossList.glossEntry;
       expect(ge, isNot(isNull));
-      expect(ge.iD, equals("SGML"));
-      expect(ge.sortAs, equals("SGML"));
-      expect(ge.glossTerm, equals("Standard Generalized Markup Language"));
-      expect(ge.acronym, equals("SGML"));
-      expect(ge.abbrev, equals("ISO 8879:1986"));
-      expect(ge.glossSee, equals("markup"));
+      expect(ge.iD, equals('SGML'));
+      expect(ge.sortAs, equals('SGML'));
+      expect(ge.glossTerm, equals('Standard Generalized Markup Language'));
+      expect(ge.acronym, equals('SGML'));
+      expect(ge.abbrev, equals('ISO 8879:1986'));
+      expect(ge.glossSee, equals('markup'));
       expect(ge.glossDef, isNot(isNull));
       expect(
           ge.glossDef.para,
           equals(
-              "A meta-markup language, used to create markup languages such as DocBook."));
+              'A meta-markup language, used to create markup languages such as DocBook.'));
       final seeAlso = ge.glossDef.glossSeeAlso;
       expect(seeAlso, isNot(isNull));
       expect(seeAlso.length, equals(2));
-      expect(seeAlso[0], equals("GML"));
-      expect(seeAlso[1], equals("XML"));
+      expect(seeAlso[0], equals('GML'));
+      expect(seeAlso[1], equals('XML'));
     });
 
-    test("Generated class should correctly generate JSON", () {
-      final glossSeeAlso = new List<String>();
-      glossSeeAlso.add("GML");
-      glossSeeAlso.add("XML");
-      final glossDef = new GlossDef(
+    test('Generated class should correctly generate JSON', () {
+      final glossSeeAlso = <String>[];
+      glossSeeAlso.add('GML');
+      glossSeeAlso.add('XML');
+      final glossDef = GlossDef(
           para:
-              "A meta-markup language, used to create markup languages such as DocBook.",
+              'A meta-markup language, used to create markup languages such as DocBook.',
           glossSeeAlso: glossSeeAlso);
-      final glossEntry = new GlossEntry(
-        abbrev: "ISO 8879:1986",
-        acronym: "SGML",
+      final glossEntry = GlossEntry(
+        abbrev: 'ISO 8879:1986',
+        acronym: 'SGML',
         glossDef: glossDef,
-        glossSee: "markup",
-        glossTerm: "Standard Generalized Markup Language",
-        iD: "SGML",
-        sortAs: "SGML",
+        glossSee: 'markup',
+        glossTerm: 'Standard Generalized Markup Language',
+        iD: 'SGML',
+        sortAs: 'SGML',
       );
-      final glossList = new GlossList(
+      final glossList = GlossList(
         glossEntry: glossEntry,
       );
-      final glossDiv = new GlossDiv(
+      final glossDiv = GlossDiv(
         glossList: glossList,
-        title: "S",
+        title: 'S',
       );
-      final glossary = new Glossary(
+      final glossary = Glossary(
         glossDiv: glossDiv,
-        title: "example glossary",
+        title: 'example glossary',
       );
-      final bugTen = new BugTen(glossary: glossary);
-      final codec = new JsonCodec(toEncodable: (dynamic v) => v.toString());
+      final bugTen = BugTen(glossary: glossary);
+      final codec = JsonCodec(toEncodable: (dynamic v) => v.toString());
       final encodedJSON = codec.encode(bugTen.toJson());
       expect(encodedJSON.contains('"title":"example glossary"'), equals(true));
       expect(encodedJSON.contains('"GlossDiv":{"title":"S"'), equals(true));

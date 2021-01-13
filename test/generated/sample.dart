@@ -30,22 +30,22 @@ class Sample {
     randomIntegers = json['randomIntegers'].cast<int>();
     randomDoubles = json['randomDoubles'].cast<double>();
     personalInfo = json['personalInfo'] != null
-        ? new PersonalInfo.fromJson(json['personalInfo'])
+        ? PersonalInfo.fromJson(json['personalInfo'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['favouriteInteger'] = this.favouriteInteger;
-    data['favouriteDouble'] = this.favouriteDouble;
-    data['url'] = this.url;
-    data['html_url'] = this.htmlUrl;
-    data['tags'] = this.tags;
-    data['randomIntegers'] = this.randomIntegers;
-    data['randomDoubles'] = this.randomDoubles;
-    if (this.personalInfo != null) {
-      data['personalInfo'] = this.personalInfo.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['favouriteInteger'] = favouriteInteger;
+    data['favouriteDouble'] = favouriteDouble;
+    data['url'] = url;
+    data['html_url'] = htmlUrl;
+    data['tags'] = tags;
+    data['randomIntegers'] = randomIntegers;
+    data['randomDoubles'] = randomDoubles;
+    if (personalInfo != null) {
+      data['personalInfo'] = personalInfo.toJson();
     }
     return data;
   }
@@ -64,20 +64,20 @@ class PersonalInfo {
     lastName = json['lastName'];
     location = json['location'];
     if (json['phones'] != null) {
-      phones = new List<Phones>();
+      phones = <Phones>[];
       json['phones'].forEach((v) {
-        phones.add(new Phones.fromJson(v));
+        phones.add(Phones.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['location'] = this.location;
-    if (this.phones != null) {
-      data['phones'] = this.phones.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['location'] = location;
+    if (phones != null) {
+      data['phones'] = phones.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -97,10 +97,10 @@ class Phones {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    data['number'] = this.number;
-    data['shouldCall'] = this.shouldCall;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['number'] = number;
+    data['shouldCall'] = shouldCall;
     return data;
   }
 }

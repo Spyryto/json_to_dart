@@ -6,23 +6,23 @@ import './generated/sample_private.dart';
 
 String _scriptPath() {
   var script = Platform.script.toString();
-  if (script.startsWith("file://")) {
+  if (script.startsWith('file://')) {
     script = script.substring(7);
   } else {
-    final idx = script.indexOf("file:/");
+    final idx = script.indexOf('file:/');
     script = script.substring(idx + 5);
   }
   return script;
 }
 
 void main() {
-  group("model-generator", () {
+  group('model-generator', () {
     final currentDirectory = dirname(_scriptPath());
-    test("Generated class with private fields should correctly parse JSON", () {
+    test('Generated class with private fields should correctly parse JSON', () {
       final jsonPath = normalize(join(currentDirectory, 'test.json'));
-      final jsonRawData = new File(jsonPath).readAsStringSync();
+      final jsonRawData = File(jsonPath).readAsStringSync();
       Map sampleMap = json.decode(jsonRawData);
-      final sample = new Sample.fromJson(sampleMap);
+      final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));
       expect(sample.favouriteInteger, equals(18));
@@ -63,12 +63,12 @@ void main() {
     });
 
     test(
-        "Generated class with private fields should correctly parse JSON with missing values",
+        'Generated class with private fields should correctly parse JSON with missing values',
         () {
       final jsonPath = normalize(join(currentDirectory, 'test_missing.json'));
-      final jsonRawData = new File(jsonPath).readAsStringSync();
+      final jsonRawData = File(jsonPath).readAsStringSync();
       Map sampleMap = json.decode(jsonRawData);
-      final sample = new Sample.fromJson(sampleMap);
+      final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));
       expect(sample.favouriteInteger, isNull);
@@ -98,22 +98,22 @@ void main() {
       expect(pi.phones, isNull);
     });
 
-    test("Generated class with private fields should correctly generate JSON",
+    test('Generated class with private fields should correctly generate JSON',
         () {
-      final phones = new List<Phones>();
-      final phone = new Phones(
-        type: "IP",
-        number: "127.0.0.1",
+      final phones = <Phones>[];
+      final phone = Phones(
+        type: 'IP',
+        number: '127.0.0.1',
         shouldCall: true,
       );
       phones.add(phone);
-      final personalInfo = new PersonalInfo(
-        firstName: "User",
-        lastName: "Test",
-        location: "In a computer",
+      final personalInfo = PersonalInfo(
+        firstName: 'User',
+        lastName: 'Test',
+        location: 'In a computer',
         phones: phones,
       );
-      final sample = new Sample(
+      final sample = Sample(
         username: 'Test',
         favouriteInteger: 13,
         favouriteDouble: 3.1416,
@@ -124,7 +124,7 @@ void main() {
         randomDoubles: const [4.4, 5.5],
         personalInfo: personalInfo,
       );
-      final codec = new JsonCodec(toEncodable: (dynamic v) => v.toString());
+      final codec = JsonCodec(toEncodable: (dynamic v) => v.toString());
       final encodedJSON = codec.encode(sample.toJson());
       expect(encodedJSON.contains('"username":"Test"'), equals(true));
       expect(encodedJSON.contains('"favouriteInteger":13'), equals(true));
@@ -146,13 +146,13 @@ void main() {
     });
 
     test(
-        "Generated class with private fields should correctly generate JSON with missing values",
+        'Generated class with private fields should correctly generate JSON with missing values',
         () {
-      final personalInfo = new PersonalInfo(
-        firstName: "User",
+      final personalInfo = PersonalInfo(
+        firstName: 'User',
         lastName: null,
       );
-      final sample = new Sample(
+      final sample = Sample(
         username: 'Test',
         favouriteInteger: null,
         favouriteDouble: 3.1416,
@@ -162,7 +162,7 @@ void main() {
         randomDoubles: const [4.4, 5.5],
         personalInfo: personalInfo,
       );
-      final codec = new JsonCodec(toEncodable: (dynamic v) => v.toString());
+      final codec = JsonCodec(toEncodable: (dynamic v) => v.toString());
       final encodedJSON = codec.encode(sample.toJson());
       expect(encodedJSON.contains('"username":"Test"'), equals(true));
       expect(encodedJSON.contains('"favouriteInteger":null'), equals(true));

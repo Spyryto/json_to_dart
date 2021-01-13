@@ -1,10 +1,10 @@
-import 'dart:convert' as Convert;
+import 'dart:convert' as convert;
 import 'dart:math';
 import 'package:json_ast/json_ast.dart'
     show Node, ObjectNode, ArrayNode, LiteralNode;
 import 'package:json_to_dart/syntax.dart';
 
-const Map<String, bool> PRIMITIVE_TYPES = const {
+const Map<String, bool> PRIMITIVE_TYPES = {
   'int': true,
   'double': true,
   'String': true,
@@ -52,8 +52,8 @@ MergeableListType mergeableListType(List<dynamic> list) {
 String camelCase(String text) {
   String capitalize(Match m) =>
       m[0].substring(0, 1).toUpperCase() + m[0].substring(1);
-  String skip(String s) => "";
-  return text.splitMapJoin(new RegExp(r'[a-zA-Z0-9]+'),
+  String skip(String s) => '';
+  return text.splitMapJoin(RegExp(r'[a-zA-Z0-9]+'),
       onMatch: capitalize, onNonMatch: skip);
 }
 
@@ -64,12 +64,12 @@ String camelCaseFirstLower(String text) {
   return '$firstChar$rest';
 }
 
-decodeJSON(String rawJson) {
-  return Convert.json.decode(rawJson);
+dynamic decodeJSON(String rawJson) {
+  return convert.json.decode(rawJson);
 }
 
 WithWarning<Map> mergeObj(Map obj, Map other, String path) {
-  List<Warning> warnings = new List<Warning>();
+  List<Warning> warnings = <Warning>[];
   final Map clone = Map.from(obj);
   other.forEach((k, v) {
     if (clone[k] == null) {
@@ -94,7 +94,7 @@ WithWarning<Map> mergeObj(Map obj, Map other, String path) {
           warnings.addAll(mergedList.warnings);
           clone[k] = List.filled(1, mergedList.result);
         } else {
-          if (l.length > 0) {
+          if (l.isNotEmpty) {
             clone[k] = List.filled(1, l[0]);
           }
           if (mergeableType.isAmbigous) {
@@ -108,13 +108,13 @@ WithWarning<Map> mergeObj(Map obj, Map other, String path) {
       }
     }
   });
-  return new WithWarning(clone, warnings);
+  return WithWarning(clone, warnings);
 }
 
 WithWarning<Map> mergeObjectList(List<dynamic> list, String path,
     [int idx = -1]) {
-  List<Warning> warnings = new List<Warning>();
-  Map obj = new Map();
+  List<Warning> warnings = <Warning>[];
+  Map obj = {};
   for (var i = 0; i < list.length; i++) {
     final toMerge = list[i];
     if (toMerge is Map) {
@@ -149,7 +149,7 @@ WithWarning<Map> mergeObjectList(List<dynamic> list, String path,
               warnings.addAll(mergedList.warnings);
               obj[k] = List.filled(1, mergedList.result);
             } else {
-              if (l.length > 0) {
+              if (l.isNotEmpty) {
                 obj[k] = List.filled(1, l[0]);
               }
               if (mergeableType.isAmbigous) {
@@ -173,10 +173,10 @@ WithWarning<Map> mergeObjectList(List<dynamic> list, String path,
       });
     }
   }
-  return new WithWarning(obj, warnings);
+  return WithWarning(obj, warnings);
 }
 
-isPrimitiveType(String typeName) {
+bool isPrimitiveType(String typeName) {
   final isPrimitive = PRIMITIVE_TYPES[typeName];
   if (isPrimitive == null) {
     return false;
@@ -187,7 +187,7 @@ isPrimitiveType(String typeName) {
 String fixFieldName(String name,
     {TypeDefinition typeDef, bool privateField = false}) {
   var properName = name;
-  if (name.startsWith('_') || name.startsWith(new RegExp(r'[0-9]'))) {
+  if (name.startsWith('_') || name.startsWith(RegExp(r'[0-9]'))) {
     final firstCharType = typeDef.name.substring(0, 1).toLowerCase();
     properName = '$firstCharType$name';
   }
@@ -232,7 +232,7 @@ Node navigateNode(Node astNode, String path) {
   }
   if (astNode is ArrayNode) {
     final ArrayNode arrayNode = astNode;
-    final index = int.tryParse(path) ?? null;
+    final index = int.tryParse(path);
     if (index != null && arrayNode.children.length > index) {
       node = arrayNode.children[index];
     }
@@ -240,7 +240,7 @@ Node navigateNode(Node astNode, String path) {
   return node;
 }
 
-final _pattern = RegExp(r"([0-9]+)\.{0,1}([0-9]*)e(([-0-9]+))");
+final _pattern = RegExp(r'([0-9]+)\.{0,1}([0-9]*)e(([-0-9]+))');
 
 bool isASTLiteralDouble(Node astNode) {
   if (astNode != null && astNode is LiteralNode) {

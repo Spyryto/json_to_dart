@@ -19,15 +19,15 @@ class Sample {
       List<int> randomIntegers,
       List<double> randomDoubles,
       PersonalInfo personalInfo}) {
-    this._username = username;
-    this._favouriteInteger = favouriteInteger;
-    this._favouriteDouble = favouriteDouble;
-    this._url = url;
-    this._htmlUrl = htmlUrl;
-    this._tags = tags;
-    this._randomIntegers = randomIntegers;
-    this._randomDoubles = randomDoubles;
-    this._personalInfo = personalInfo;
+    _username = username;
+    _favouriteInteger = favouriteInteger;
+    _favouriteDouble = favouriteDouble;
+    _url = url;
+    _htmlUrl = htmlUrl;
+    _tags = tags;
+    _randomIntegers = randomIntegers;
+    _randomDoubles = randomDoubles;
+    _personalInfo = personalInfo;
   }
 
   String get username => _username;
@@ -63,22 +63,22 @@ class Sample {
     _randomIntegers = json['randomIntegers'].cast<int>();
     _randomDoubles = json['randomDoubles'].cast<double>();
     _personalInfo = json['personalInfo'] != null
-        ? new PersonalInfo.fromJson(json['personalInfo'])
+        ? PersonalInfo.fromJson(json['personalInfo'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this._username;
-    data['favouriteInteger'] = this._favouriteInteger;
-    data['favouriteDouble'] = this._favouriteDouble;
-    data['url'] = this._url;
-    data['html_url'] = this._htmlUrl;
-    data['tags'] = this._tags;
-    data['randomIntegers'] = this._randomIntegers;
-    data['randomDoubles'] = this._randomDoubles;
-    if (this._personalInfo != null) {
-      data['personalInfo'] = this._personalInfo.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = _username;
+    data['favouriteInteger'] = _favouriteInteger;
+    data['favouriteDouble'] = _favouriteDouble;
+    data['url'] = _url;
+    data['html_url'] = _htmlUrl;
+    data['tags'] = _tags;
+    data['randomIntegers'] = _randomIntegers;
+    data['randomDoubles'] = _randomDoubles;
+    if (_personalInfo != null) {
+      data['personalInfo'] = _personalInfo.toJson();
     }
     return data;
   }
@@ -95,10 +95,10 @@ class PersonalInfo {
       String lastName,
       String location,
       List<Phones> phones}) {
-    this._firstName = firstName;
-    this._lastName = lastName;
-    this._location = location;
-    this._phones = phones;
+    _firstName = firstName;
+    _lastName = lastName;
+    _location = location;
+    _phones = phones;
   }
 
   String get firstName => _firstName;
@@ -115,20 +115,20 @@ class PersonalInfo {
     _lastName = json['lastName'];
     _location = json['location'];
     if (json['phones'] != null) {
-      _phones = new List<Phones>();
+      _phones = <Phones>[];
       json['phones'].forEach((v) {
-        _phones.add(new Phones.fromJson(v));
+        _phones.add(Phones.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['firstName'] = this._firstName;
-    data['lastName'] = this._lastName;
-    data['location'] = this._location;
-    if (this._phones != null) {
-      data['phones'] = this._phones.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['firstName'] = _firstName;
+    data['lastName'] = _lastName;
+    data['location'] = _location;
+    if (_phones != null) {
+      data['phones'] = _phones.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -140,9 +140,9 @@ class Phones {
   bool _shouldCall;
 
   Phones({String type, String number, bool shouldCall}) {
-    this._type = type;
-    this._number = number;
-    this._shouldCall = shouldCall;
+    _type = type;
+    _number = number;
+    _shouldCall = shouldCall;
   }
 
   String get type => _type;
@@ -159,10 +159,10 @@ class Phones {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this._type;
-    data['number'] = this._number;
-    data['shouldCall'] = this._shouldCall;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = _type;
+    data['number'] = _number;
+    data['shouldCall'] = _shouldCall;
     return data;
   }
 }
