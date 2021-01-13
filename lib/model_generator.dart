@@ -31,22 +31,23 @@ class ModelGenerator {
   List<Hint> hints;
 
   ModelGenerator(
-    this._rootClassName, [
-    this._privateFields = false,
-    this._newKeyword = false,
-    this._thisKeyword = false,
-    this._collectionLiterals = true,
-    this._makePropertiesRequired = false,
-    this._makePropertiesFinal = false,
-    this._typesOnly = false,
-    hints,
-  ]) {
-    if (hints != null) {
-      this.hints = hints;
-    } else {
-      this.hints = <Hint>[];
-    }
-  }
+    this._rootClassName, {
+    bool privateFields = false,
+    bool newKeyword = false,
+    bool thisKeyword = false,
+    bool collectionLiterals = true,
+    bool makePropertiesRequired = false,
+    bool makePropertiesFinal = false,
+    bool typesOnly = false,
+    dynamic hints,
+  })  : _privateFields = privateFields,
+        _newKeyword = newKeyword,
+        _thisKeyword = thisKeyword,
+        _collectionLiterals = collectionLiterals,
+        _makePropertiesRequired = makePropertiesRequired,
+        _makePropertiesFinal = makePropertiesFinal,
+        _typesOnly = typesOnly,
+        hints = hints ??= <Hint>[];
 
   Hint _hintForPath(String path) {
     return hints.firstWhere((h) => h.path == path, orElse: () => null);
