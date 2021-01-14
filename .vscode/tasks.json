@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dart",
+			"command": "dart",
+			"args": [
+				"test"
+			],
+			"problemMatcher": [],
+			"label": "dart test",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		}
+	]
+}
