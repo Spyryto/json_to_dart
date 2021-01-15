@@ -53,7 +53,8 @@ class TypeDefinition {
         }
       } else {
         // when array is empty insert Null just to warn the user
-        elemType = 'Null';
+        elemType = 'String';
+        // elemType = 'Null';
       }
       return TypeDefinition(type,
           astNode: astNode, subtype: elemType, isAmbiguous: isAmbiguous);
@@ -107,7 +108,7 @@ class TypeDefinition {
     bool privateField,
     bool newKeyword,
     bool thisKeyword,
-    bool collectonLiteral,
+    bool collectionLiteral,
   ) {
     final jsonKey = "json['$key']";
     String fieldKey =
@@ -126,7 +127,7 @@ class TypeDefinition {
       return "$fieldKey = DateTime.tryParse(json['$key']);";
     } else if (name == 'List') {
       // list of class
-      if (collectonLiteral) {
+      if (collectionLiteral) {
         return "if (json['$key'] != null) {\n\t\t\t$fieldKey = <$subtype>[];\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add($subtype.fromJson(v)); });\n\t\t}";
       } else {
         if (newKeyword) {
@@ -410,14 +411,14 @@ class ClassDefinition {
     final sb = StringBuffer();
     if (collectionLiterals) {
       sb.write(
-          '\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = <String, dynamic>{};\n');
+          '\tMap<String, dynamic> toJson() {\n\t\tfinal data = <String, dynamic>{};\n');
     } else {
       if (newKeyword) {
         sb.write(
-            '\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = new Map<String, dynamic>();\n');
+            '\tMap<String, dynamic> toJson() {\n\t\tfinal data = new Map<String, dynamic>();\n');
       } else {
         sb.write(
-            '\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = Map<String, dynamic>();\n');
+            '\tMap<String, dynamic> toJson() {\n\t\tfinal data = Map<String, dynamic>();\n');
       }
     }
     fields.keys.forEach((k) {

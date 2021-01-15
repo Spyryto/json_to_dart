@@ -38,10 +38,15 @@ void main() {
 
     test('Should identify a double number and generate the proper type',
         () async {
-      final jsonPath = normalize(join(currentDirectory, 'double.json'));
+      final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       final modelGenerator = ModelGenerator('DoubleTest');
       final dartSourceCode = modelGenerator.generateDartClasses(jsonRawData);
+
+      // Write to file for debugging purposes.
+      await File(join(currentDirectory, 'output.dart'))
+          .writeAsString(dartSourceCode.code);
+
       final wrongDoubleRegExp = RegExp(r'^.*double int[0-9]+;$');
       final wrongIntRegExp = RegExp(r'^.*int double[0-9]+;$');
       final wrongDoubleMatch =

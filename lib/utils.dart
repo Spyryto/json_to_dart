@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'syntax.dart';
+
 String thisScriptPath() {
   var uri = Platform.script.toString();
   return scriptPath(uri);
@@ -22,4 +24,14 @@ String scriptPath(String uri) {
     path = uri.substring(idx + 5);
   }
   return path;
+}
+
+void showWarnings(List<Warning> list) {
+  if (list.isNotEmpty) {
+    print('\n');
+    list.forEach((warning) {
+      print('Warning for ${warning.path}: ${warning.warning}');
+    });
+    print('\n');
+  }
 }

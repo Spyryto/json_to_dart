@@ -2,16 +2,15 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:path/path.dart' show dirname, join, normalize;
 import 'package:test/test.dart';
-import './generated/sample_private.dart';
+import '../generated/sample.dart';
 
 import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
     final currentDirectory = dirname(thisScriptPath());
-    test('Generated class with private fields should correctly parse JSON',
-        () async {
-      final jsonPath = normalize(join(currentDirectory, 'test.json'));
+    test('Generated class should correctly parse JSON', () async {
+      final jsonPath = normalize(join(currentDirectory, 'input--ok.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       Map sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
@@ -54,10 +53,9 @@ void main() {
       expect(ph[1].shouldCall, equals(false));
     });
 
-    test(
-        'Generated class with private fields should correctly parse JSON with missing values',
+    test('Generated class should correctly parse JSON with missing values',
         () async {
-      final jsonPath = normalize(join(currentDirectory, 'test_missing.json'));
+      final jsonPath = normalize(join(currentDirectory, 'input--missing.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       Map sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
@@ -90,8 +88,7 @@ void main() {
       expect(pi.phones, isNull);
     });
 
-    test('Generated class with private fields should correctly generate JSON',
-        () {
+    test('Generated class should correctly generate JSON', () {
       final phones = <Phones>[];
       final phone = Phones(
         type: 'IP',
@@ -137,8 +134,7 @@ void main() {
       expect(encodedJSON.contains('"shouldCall":true'), equals(true));
     });
 
-    test(
-        'Generated class with private fields should correctly generate JSON with missing values',
+    test('Generated class should correctly generate JSON with missing values',
         () {
       final personalInfo = PersonalInfo(
         firstName: 'User',

@@ -11,13 +11,22 @@ void main() {
     final currentDirectory = dirname(thisScriptPath());
 
     test('Should generate the classes to parse the JSON', () async {
-      final jsonPath = normalize(join(currentDirectory, 'matrix.json'));
+      final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       final generator = ModelGenerator('Matrix');
+      /*
+      final dartCode = generator.generateDartClasses(jsonRawData);
+
+      // Write to file for debugging purposes.
+      await File(join(currentDirectory, 'output.dart'))
+        .writeAsString(dartCode.code);
+      */
+
       // FIXME: Add matrix support
-      // final dartCode = generator.generateDartClasses(jsonRawData);
-      // expect(dartCode.warnings.length, equals(1));
-      // expect(dartCode.code.contains('class Matrix'), equals(true));
-    });
+      /*
+      expect(dartCode.warnings.length, equals(1));
+      expect(dartCode.code.contains('class Matrix'), equals(true));
+      */
+    }, skip: 'matrix not implemented');
   });
 }

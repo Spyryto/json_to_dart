@@ -11,13 +11,16 @@ void main() {
     final currentDirectory = dirname(thisScriptPath());
 
     test('Should generate the classes to parse the JSON', () async {
-      final jsonPath = normalize(join(currentDirectory, 'bug_40.json'));
+      final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       final generator = ModelGenerator('BugForty');
       final dartCode = generator.generateDartClasses(jsonRawData);
-      expect(dartCode.warnings.length, equals(1));
-      expect(dartCode.warnings[0].warning, equals('list is empty'));
-      expect(dartCode.warnings[0].path, equals('/CustomButtons'));
+
+      // Write to file for debugging purposes.
+      await File(join(currentDirectory, 'output.dart'))
+          .writeAsString(dartCode.code);
+
+      expect(dartCode.warnings.length, equals(0));
       expect(dartCode.code.contains('class BugForty'), equals(true));
     });
   });
