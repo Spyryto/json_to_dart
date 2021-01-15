@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 String thisScriptPath() {
@@ -23,8 +22,4 @@ String scriptPath(String uri) {
     path = uri.substring(idx + 5);
   }
   return path;
-}
-
-String currentDirectory() {
-  return Directory('.').absolute.toString();
 }

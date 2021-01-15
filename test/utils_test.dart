@@ -1,6 +1,5 @@
+import 'package:json_to_dart/utils.dart';
 import 'package:test/test.dart';
-
-import 'utils.dart';
 
 void main() {
   group('getScriptPath', () {

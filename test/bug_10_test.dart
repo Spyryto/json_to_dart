@@ -6,24 +6,24 @@ import 'package:test/test.dart';
 import 'package:json_to_dart/json_to_dart.dart' show ModelGenerator;
 import './generated/bug_ten.dart';
 
-import 'utils.dart';
+import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
     final currentDirectory = dirname(thisScriptPath());
 
-    test('Should generate the classes to parse the JSON', () {
+    test('Should generate the classes to parse the JSON', () async {
       final jsonPath = normalize(join(currentDirectory, 'bug_10.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       final generator = ModelGenerator('BugTen');
       final dartCode = generator.generateDartClasses(jsonRawData);
       expect(dartCode.warnings.length, equals(0));
       expect(dartCode.code.contains('class GlossDiv'), equals(true));
     });
 
-    test('Generated class should correctly parse JSON for bug 10', () {
+    test('Generated class should correctly parse JSON for bug 10', () async {
       final jsonPath = normalize(join(currentDirectory, 'bug_10.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       Map sampleMap = json.decode(jsonRawData);
       final bugTen = BugTen.fromJson(sampleMap);
       expect(bugTen, isNot(isNull));

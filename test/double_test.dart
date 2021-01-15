@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import 'package:json_to_dart/model_generator.dart';
 import 'package:json_to_dart/helpers.dart' show isASTLiteralDouble;
 
-import 'utils.dart';
+import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('Should identify doubles and ints', () {
@@ -36,9 +36,10 @@ void main() {
       expect(isASTLiteralDouble(LiteralNode(0.1, '0.1')), isTrue);
     });
 
-    test('Should identify a double number and generate the proper type', () {
+    test('Should identify a double number and generate the proper type',
+        () async {
       final jsonPath = normalize(join(currentDirectory, 'double.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       final modelGenerator = ModelGenerator('DoubleTest');
       final dartSourceCode = modelGenerator.generateDartClasses(jsonRawData);
       final wrongDoubleRegExp = RegExp(r'^.*double int[0-9]+;$');

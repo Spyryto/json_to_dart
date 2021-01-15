@@ -3,14 +3,14 @@ import 'package:json_to_dart/model_generator.dart';
 import 'package:path/path.dart' show dirname, join, normalize;
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator-with-warnings', () {
     final currentDirectory = dirname(thisScriptPath());
-    test('should generate proper warnings', () {
+    test('should generate proper warnings', () async {
       final jsonPath = normalize(join(currentDirectory, 'test_warnings.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       final ModelGenerator modelGenerator = ModelGenerator('Warnings');
       DartCode dartCode = modelGenerator.generateUnsafeDart(jsonRawData);
       expect(dartCode.warnings, isNot(null));

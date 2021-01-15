@@ -4,14 +4,15 @@ import 'package:path/path.dart' show dirname, join, normalize;
 import 'package:test/test.dart';
 import './generated/sample_private.dart';
 
-import 'utils.dart';
+import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
     final currentDirectory = dirname(thisScriptPath());
-    test('Generated class with private fields should correctly parse JSON', () {
+    test('Generated class with private fields should correctly parse JSON',
+        () async {
       final jsonPath = normalize(join(currentDirectory, 'test.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       Map sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
@@ -55,9 +56,9 @@ void main() {
 
     test(
         'Generated class with private fields should correctly parse JSON with missing values',
-        () {
+        () async {
       final jsonPath = normalize(join(currentDirectory, 'test_missing.json'));
-      final jsonRawData = File(jsonPath).readAsStringSync();
+      final jsonRawData = await File(jsonPath).readAsString();
       Map sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));

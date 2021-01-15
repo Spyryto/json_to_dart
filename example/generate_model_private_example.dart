@@ -1,23 +1,15 @@
 import 'dart:io';
-import "package:path/path.dart" show dirname, join, normalize;
-import '../lib/json_to_dart.dart';
 
-String _scriptPath() {
-  var script = Platform.script.toString();
-  if (script.startsWith("file://")) {
-    script = script.substring(7);
-  } else {
-    final idx = script.indexOf("file:/");
-    script = script.substring(idx + 5);
-  }
-  return script;
-}
+import 'package:json_to_dart/json_to_dart.dart';
+import 'package:path/path.dart' show dirname, join, normalize;
 
-main() {
-  final classGenerator = new ModelGenerator('Sample', true);
-  final currentDirectory = dirname(_scriptPath());
+import 'package:json_to_dart/utils.dart';
+
+Future<void> main() async {
+  final classGenerator = ModelGenerator('Sample', privateFields: true);
+  final currentDirectory = dirname(thisScriptPath());
   final filePath = normalize(join(currentDirectory, 'sample.json'));
-  final jsonRawData = new File(filePath).readAsStringSync();
+  final jsonRawData = await File(filePath).readAsString();
   DartCode dartCode = classGenerator.generateDartClasses(jsonRawData);
   print(dartCode.code);
 }
