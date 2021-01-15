@@ -11,7 +11,7 @@ void main() async {
   final jsonPath = normalize(join(currentDirectory, 'input.json'));
   final jsonRawData = await File(jsonPath).readAsString();
 
-  final generator = ModelGenerator('Response');
+  final generator = ModelGenerator('Response', fieldsOnly: true);
   final dartCode = generator.generateDartClasses(jsonRawData);
 
   // Write to file for debugging purposes.
@@ -22,15 +22,17 @@ void main() async {
     showWarnings(dartCode.warnings);
     expect(dartCode.warnings.isEmpty, equals(true));
   });
-  test('generated code should not have lists of nulls', () async {
-    expect(dartCode.code.contains('List<Null>'), equals(false));
-    expect(dartCode.code.contains('Null.fromJson(v)'), equals(false));
+  test('generated code should not have constructors', () async {
+    expect(dartCode.code.contains('this.'), equals(false));
   });
 
-  test(
-      'generated code should have List<String> instead of List<Null> by default',
-      () {
-    expect(dartCode.code.contains('List<Null>'), equals(false));
-    expect(dartCode.code.contains('List<String>'), equals(true));
+  test('generated code should be a data structure', () {
+    expect(dartCode.code, contains('''
+class Dati {
+  String codiceAzienda;
+  String codiceAnagrafico;
+  String codiceServizio;
+}
+'''));
   });
 }

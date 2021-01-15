@@ -26,6 +26,7 @@ class ModelGenerator {
   final bool _makePropertiesRequired;
   final bool _makePropertiesFinal;
   final bool _typesOnly;
+  final bool _fieldsOnly;
   List<ClassDefinition> allClasses = <ClassDefinition>[];
   final Map<String, String> sameClassMapping = <String, String>{};
   List<Hint> hints;
@@ -39,6 +40,7 @@ class ModelGenerator {
     bool makePropertiesRequired = false,
     bool makePropertiesFinal = false,
     bool typesOnly = false,
+    bool fieldsOnly = false,
     dynamic hints,
   })  : _privateFields = privateFields,
         _newKeyword = newKeyword,
@@ -47,6 +49,7 @@ class ModelGenerator {
         _makePropertiesRequired = makePropertiesRequired,
         _makePropertiesFinal = makePropertiesFinal,
         _typesOnly = typesOnly,
+        _fieldsOnly = fieldsOnly,
         hints = hints ??= <Hint>[];
 
   Hint _hintForPath(String path) {
@@ -72,6 +75,7 @@ class ModelGenerator {
         _makePropertiesRequired,
         _makePropertiesFinal,
         _typesOnly,
+        _fieldsOnly,
       );
       keys.forEach((key) {
         TypeDefinition typeDef;

@@ -215,6 +215,7 @@ class ClassDefinition {
   final bool makePropertiesRequired;
   final bool makePropertiesFinal;
   final bool typesOnly;
+  final bool fieldsOnly;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
 
   List<Dependency> get dependencies {
@@ -238,6 +239,7 @@ class ClassDefinition {
     this.makePropertiesRequired = false,
     this.makePropertiesFinal = false,
     this.typesOnly = false,
+    this.fieldsOnly = false,
   ]);
 
   @override
@@ -424,7 +426,9 @@ class ClassDefinition {
 
   @override
   String toString() {
-    if (typesOnly) {
+    if (fieldsOnly) {
+      return 'class $name {\n$_fieldList\n}\n';
+    } else if (typesOnly) {
       if (privateFields) {
         return 'class $name {\n$_fieldList\n\n$_defaultPrivateConstructor\n\n$_gettersSetters\n}\n';
       } else {
