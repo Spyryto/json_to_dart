@@ -207,24 +207,16 @@ class Dependency {
 }
 
 class ClassDefinition {
-  final String _name;
-  final bool _privateFields;
-  final bool _newKeyword;
-  final bool _thisKeyword;
-  final bool _collectionLiterals;
-  final bool _makePropertiesRequired;
-  final bool _makePropertiesFinal;
-  final bool _typesOnly;
+  final String name;
+  final bool privateFields;
+  final bool newKeyword;
+  final bool thisKeyword;
+  final bool collectionLiterals;
+  final bool makePropertiesRequired;
+  final bool makePropertiesFinal;
+  final bool typesOnly;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
 
-  String get name => _name;
-  bool get privateFields => _privateFields;
-  bool get newKeyword => _newKeyword;
-  bool get thisKeyword => _thisKeyword;
-  bool get collectionLiterals => _collectionLiterals;
-  bool get makePropertiesRequired => _makePropertiesRequired;
-  bool get makePropertiesFinal => _makePropertiesFinal;
-  bool get typesOnly => _typesOnly;
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
     final keys = fields.keys;
@@ -238,14 +230,14 @@ class ClassDefinition {
   }
 
   ClassDefinition(
-    this._name, [
-    this._privateFields = false,
-    this._newKeyword = false,
-    this._thisKeyword = false,
-    this._collectionLiterals = true,
-    this._makePropertiesRequired = false,
-    this._makePropertiesFinal = false,
-    this._typesOnly = false,
+    this.name, [
+    this.privateFields = false,
+    this.newKeyword = false,
+    this.thisKeyword = false,
+    this.collectionLiterals = true,
+    this.makePropertiesRequired = false,
+    this.makePropertiesFinal = false,
+    this.typesOnly = false,
   ]);
 
   @override
