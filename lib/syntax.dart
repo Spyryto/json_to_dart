@@ -182,16 +182,16 @@ class TypeDefinition {
       thisKey = 'this.$fieldKey';
     }
     if (isPrimitive) {
-      return "data['$key'] = $thisKey;";
+      return "__data__['$key'] = $thisKey;";
     } else if (name == 'List') {
       // class list
       return """if ($thisKey != null) {
-      data['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();
+      __data__['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();
     }""";
     } else {
       // class
       return """if ($thisKey != null) {
-      data['$key'] = ${_buildToJsonClass(thisKey)};
+      __data__['$key'] = ${_buildToJsonClass(thisKey)};
     }""";
     }
   }
@@ -420,21 +420,21 @@ class ClassDefinition {
     final sb = StringBuffer();
     if (collectionLiterals) {
       sb.write(
-          '\tMap<String, dynamic> toJson() {\n\t\tfinal data = <String, dynamic>{};\n');
+          '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = <String, dynamic>{};\n');
     } else {
       if (newKeyword) {
         sb.write(
-            '\tMap<String, dynamic> toJson() {\n\t\tfinal data = new Map<String, dynamic>();\n');
+            '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = new Map<String, dynamic>();\n');
       } else {
         sb.write(
-            '\tMap<String, dynamic> toJson() {\n\t\tfinal data = Map<String, dynamic>();\n');
+            '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = Map<String, dynamic>();\n');
       }
     }
     fields.keys.forEach((k) {
       sb.write(
           '\t\t${fields[k].toJsonExpression(k, privateFields, thisKeyword)}\n');
     });
-    sb.write('\t\treturn data;\n');
+    sb.write('\t\treturn __data__;\n');
     sb.write('\t}');
     return sb.toString();
   }
