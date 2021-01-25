@@ -8,10 +8,17 @@ This library is designed to generate Flutter friendly model classes following th
 
 ## Caveats
 
-- When an empty array is given, it will create a List<Null>. Such weird behaviour should warn the user that there is no data to extract.
-- Equal structures are not detected yet (Equal classes are going to be created over and over).
-- Properties named with funky names (like "!breaks", "|breaks", etc) or keyword (like "this", "break", "class", etc) will produce syntax errors.
-- Array of arrays are not supported:
+🗹	 `Null` typedefs default to `String` now. A comment is added to warn the user: ```/* null supplied */```. This makes the generated code at least usable.
+
+🗹 Equal structures are detected. Equal classes are prefixed with name of parent class.
+
+🗹 Maps can be used to rename classes on a general basis.
+
+🗹 Hints can be used to rename classes matching a specified path selector.
+
+☐ Properties named with funky names (like "!breaks", "|breaks", etc) or keyword (like "this", "break", "class", etc) are not handled. They will produce syntax errors.
+
+☐ Array of arrays are not supported:
 
 ```json
 [[{ "isThisSupported": false }]]
