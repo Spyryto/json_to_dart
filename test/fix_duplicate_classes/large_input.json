@@ -1,0 +1,1165 @@
+{
+	"sent_data": {
+		"uid": "AWB-37"
+	},
+	"response_code": 0,
+	"response_message": "Elenco anagrafiche e servizi collegati.",
+	"response_cacheable": 86400,
+	"personal_data": [
+		{
+			"uid": "ANA-37-01-4023056",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "4023056",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2005-01-01",
+				"end_date": null,
+				"fiscal_id": "RTSMTT77B14C743S",
+				"vat_number": null,
+				"bank_account": {
+					"subscription_date": "2013-10-04",
+					"bank": "DOMICILIAZIONE_RID",
+					"last_update": "2016-02-16 20:50:00"
+				},
+				"landline": [],
+				"mobile": {
+					"label": "principale",
+					"number": "333/4259047"
+				},
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": null,
+					"last_name": "ARTUSO MATTEO",
+					"company_name": null,
+					"address": "VIA MAGLIO",
+					"street_number": "40",
+					"zip_code": "35018",
+					"province": "PADOVA",
+					"city": "SAN MARTINO DI LUPARI",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "ARTUSO MATTEO",
+					"company_name": "ARTUSO MATTEO",
+					"address": "VIA MAGLIO",
+					"street_number": "40",
+					"zip_code": "35018",
+					"province": "PADOVA",
+					"city": "SAN MARTINO DI LUPARI",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-4023056-163160767",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "4023056",
+						"service_code": "163160767",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "D",
+							"description": "DOMESTICA",
+							"user_type_id": "UTZ-D-1"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "DOMESTICO RESIDENTI - IDRICO INTEGRATO",
+						"use": "DOMESTICI",
+						"service_begin_date": "2015-07-10",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": null,
+							"last_name": "ARTUSO MATTEO",
+							"company_name": "ARTUSO MATTEO",
+							"address": "VIA MAGLIO",
+							"street_number": "40",
+							"zip_code": "35018",
+							"province": "PADOVA",
+							"city": "SAN MARTINO DI LUPARI",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-I008-61",
+							"street_id": "VIA-I008-61-29280"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-50446867",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "50446867",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "1990-10-03",
+				"end_date": null,
+				"fiscal_id": "BRTGMN40L25B795G",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": [],
+				"mobile": [],
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": "GERMANO",
+					"last_name": "BARTOLOMEI",
+					"company_name": null,
+					"address": "VIA A. MORO",
+					"street_number": "20",
+					"zip_code": "35010",
+					"province": "PADOVA",
+					"city": "CARMIGNANO DI BRENTA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "BARTOLOMEI GERMANO",
+					"company_name": "BARTOLOMEI GERMANO",
+					"address": "VIA A. MORO",
+					"street_number": "20",
+					"zip_code": "35010",
+					"province": "PADOVA",
+					"city": "CARMIGNANO DI BRENTA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-50446867-10031928",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "50446867",
+						"service_code": "10031928",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "D",
+							"description": "DOMESTICA",
+							"user_type_id": "UTZ-D-1"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "DOMESTICO RESIDENTI - IDRICO INTEGRATO",
+						"use": "USO DOMESTICO RESIDENTE",
+						"service_begin_date": "1990-10-03",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": "GERMANO",
+							"last_name": "BARTOLOMEI",
+							"company_name": "BARTOLOMEI GERMANO",
+							"address": "VIA A. MORO",
+							"street_number": "20",
+							"zip_code": "35010",
+							"province": "PADOVA",
+							"city": "CARMIGNANO DI BRENTA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-B795-15",
+							"street_id": "VIA-B795-15-21370"
+						},
+						"office_address": {
+							"first_name": null,
+							"last_name": "BARTOLOMEI GERMANO",
+							"company_name": "BARTOLOMEI GERMANO",
+							"address": "VIA A. MORO",
+							"street_number": "20",
+							"zip_code": "35010",
+							"province": "PADOVA",
+							"city": "CARMIGNANO DI BRENTA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00"
+						},
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-50450070",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "50450070",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2000-12-31",
+				"end_date": null,
+				"fiscal_id": "LRNDLN50R51C037G",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": {
+					"label": "principale",
+					"number": "0424534275"
+				},
+				"mobile": [],
+				"fax": {
+					"label": "principale",
+					"number": "533055"
+				},
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": "DANIELA ANCILLA",
+					"last_name": "LORENZIN",
+					"company_name": null,
+					"address": "VIA GRANDE",
+					"street_number": "43",
+					"zip_code": "36022",
+					"province": "VICENZA",
+					"city": "CASSOLA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": "DANIELA ANCILLA",
+					"last_name": "LORENZIN",
+					"company_name": "LORENZIN DANIELA ANCILLA",
+					"address": "VIA GRANDE",
+					"street_number": "43",
+					"zip_code": "36022",
+					"province": "VICENZA",
+					"city": "CASSOLA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-50450070-99999118",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "50450070",
+						"service_code": "99999118",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "ND",
+							"description": "NON_DOMESTICA",
+							"user_type_id": "UTZ-ND-2"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "USO CANTIERE - SOLO ACQUEDOTTO",
+						"use": "USO CANTIERE",
+						"service_begin_date": "2006-10-13",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": "DANIELA ANCILLA",
+							"last_name": "LORENZIN",
+							"company_name": "LORENZIN DANIELA ANCILLA",
+							"address": "VIA BALBI",
+							"street_number": "151",
+							"zip_code": "36022",
+							"province": "VICENZA",
+							"city": "CASSOLA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-C037-98",
+							"street_id": "VIA-C037-98-5650"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-50451622",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "50451622",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2006-09-19",
+				"end_date": null,
+				"fiscal_id": null,
+				"vat_number": "02675210245",
+				"bank_account": null,
+				"landline": [],
+				"mobile": {
+					"label": "principale",
+					"number": "3283347701"
+				},
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": null,
+					"last_name": "AUTOSCUOLE MONTEGRAPPA SNC DI TOMMASINI",
+					"company_name": null,
+					"address": "P.ZZA FIRENZE",
+					"street_number": "16",
+					"zip_code": "36061",
+					"province": "VICENZA",
+					"city": "BASSANO DEL GRAPPA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "AUTOSCUOLE MONTEGRAPPA SNC DI TOMMASINI",
+					"company_name": "AUTOSCUOLE MONTEGRAPPA SNC DI TOMMASINI",
+					"address": "P.ZZA FIRENZE",
+					"street_number": "16",
+					"zip_code": "36061",
+					"province": "VICENZA",
+					"city": "BASSANO DEL GRAPPA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-50451622-100038928",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "50451622",
+						"service_code": "100038928",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "ND",
+							"description": "NON_DOMESTICA",
+							"user_type_id": "UTZ-ND-2"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "PRODUTTIVO - IDRICO INTEGRATO",
+						"use": "UFFICI E STUDI",
+						"service_begin_date": "2006-09-19",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": null,
+							"last_name": "AUTOSCUOLE MONTEGRAPPA SNC DI TOMMASINI",
+							"company_name": "AUTOSCUOLE MONTEGRAPPA SNC DI TOMMASINI",
+							"address": "P.ZZA FIRENZE",
+							"street_number": "16",
+							"zip_code": "36061",
+							"province": "VICENZA",
+							"city": "BASSANO DEL GRAPPA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-A703-109",
+							"street_id": "VIA-A703-109-72119"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-50764869",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "50764869",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2010-09-30",
+				"end_date": null,
+				"fiscal_id": "MNRLNZ52E15A703B",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": [],
+				"mobile": {
+					"label": "principale",
+					"number": "333/4624667"
+				},
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": "LORENZO",
+					"last_name": "MUNARI",
+					"company_name": null,
+					"address": "VIA CAV. ITALICO GIRARDI",
+					"street_number": "77",
+					"zip_code": "36028",
+					"province": "VICENZA",
+					"city": "ROSSANO VENETO",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": "LORENZO",
+					"last_name": "MUNARI",
+					"company_name": "MUNARI LORENZO",
+					"address": "VIA CAV. ITALICO GIRARDI",
+					"street_number": "77",
+					"zip_code": "36028",
+					"province": "VICENZA",
+					"city": "ROSSANO VENETO",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-50764869-139434870",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "50764869",
+						"service_code": "139434870",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "D",
+							"description": "DOMESTICA",
+							"user_type_id": "UTZ-D-1"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "DOMESTICO RESIDENTI - IDRICO INTEGRATO",
+						"use": "USO DOMESTICO RESIDENTE",
+						"service_begin_date": "2010-09-30",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": "LORENZO",
+							"last_name": "MUNARI",
+							"company_name": "MUNARI LORENZO",
+							"address": "VIA CAV. ITALICO GIRARDI",
+							"street_number": "77",
+							"zip_code": "36028",
+							"province": "VICENZA",
+							"city": "ROSSANO VENETO",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-H580-95",
+							"street_id": "VIA-H580-95-70478"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-5100004267",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "5100004267",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2001-06-30",
+				"end_date": null,
+				"fiscal_id": "FBRGNN24H28A703C",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": {
+					"label": "principale",
+					"number": "0424/73092"
+				},
+				"mobile": [],
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": "GIOVANNI",
+					"last_name": "FABRIS",
+					"company_name": null,
+					"address": "VIA DEI CILIEGI",
+					"street_number": "5",
+					"zip_code": "36063",
+					"province": "VICENZA",
+					"city": "MAROSTICA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": "GIOVANNI",
+					"last_name": "FABRIS",
+					"company_name": "FABRIS GIOVANNI",
+					"address": "VIA DEI CILIEGI",
+					"street_number": "5",
+					"zip_code": "36063",
+					"province": "VICENZA",
+					"city": "MAROSTICA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-5100004267-2510426700",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "5100004267",
+						"service_code": "2510426700",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "D",
+							"description": "DOMESTICA",
+							"user_type_id": "UTZ-D-1"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "DOMESTICO RESIDENTI - IDRICO INTEGRATO",
+						"use": "USO DOMESTICO RESIDENTE",
+						"service_begin_date": "2001-06-30",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": "GIOVANNI",
+							"last_name": "FABRIS",
+							"company_name": "FABRIS GIOVANNI",
+							"address": "VIA DEI CILIEGI",
+							"street_number": "5",
+							"zip_code": "36063",
+							"province": "VICENZA",
+							"city": "MAROSTICA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-E970-100",
+							"street_id": "VIA-E970-100-3970"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-5400006926",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "5400006926",
+				"state": {
+					"classification": "NON_ATTIVA",
+					"description": "NON_ATTIVA"
+				},
+				"begin_date": "2006-02-28",
+				"end_date": "2011-09-01",
+				"fiscal_id": "03323610240",
+				"vat_number": "03323610240",
+				"bank_account": null,
+				"landline": [],
+				"mobile": {
+					"label": "principale",
+					"number": "329 2243477"
+				},
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": null,
+					"last_name": "GE.COS. COSTRUISCE SPA",
+					"company_name": null,
+					"address": "VIA CARLO ROSSELLI",
+					"street_number": "33",
+					"zip_code": "36061",
+					"province": "VICENZA",
+					"city": "BASSANO DEL GRAPPA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "GE.COS. COSTRUISCE SPA",
+					"company_name": "GE.COS. COSTRUISCE SPA",
+					"address": "VIA CARLO ROSSELLI",
+					"street_number": "33",
+					"zip_code": "36061",
+					"province": "VICENZA",
+					"city": "BASSANO DEL GRAPPA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-5400006926-135458678",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "5400006926",
+						"service_code": "135458678",
+						"service_type": {
+							"classification": "SICC",
+							"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+							"service_type_id": "TSE-SICC-1"
+						},
+						"user_type": {
+							"classification": "ND",
+							"description": "NON_DOMESTICA",
+							"user_type_id": "UTZ-ND-2"
+						},
+						"state": {
+							"classification": "30",
+							"description": "SERVIZIO_CHIUSO_FATTURATO"
+						},
+						"category": "PRODUTTIVO - IDRICO INTEGRATO",
+						"use": "ATTIVITA ARTIGIANALI",
+						"service_begin_date": "2009-10-13",
+						"service_end_date": "2011-03-07",
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": null,
+							"last_name": "GE.COS. COSTRUISCE SPA",
+							"company_name": "GE.COS. COSTRUISCE SPA",
+							"address": "V.LE VICENZA",
+							"street_number": "33",
+							"zip_code": "36061",
+							"province": "VICENZA",
+							"city": "BASSANO DEL GRAPPA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-A703-109",
+							"street_id": "VIA-A703-109-2945"
+						},
+						"office_address": null,
+						"zone": null,
+						"surface_area": null
+					}
+				}
+			]
+		},
+		{
+			"uid": "SER-37-01-5400006926-99998512",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "5400006926",
+				"service_code": "99998512",
+				"service_type": {
+					"classification": "SICC",
+					"description": "SERVIZIO_IDRICO_CON_CONTATORE",
+					"service_type_id": "TSE-SICC-1"
+				},
+				"user_type": {
+					"classification": "ND",
+					"description": "NON_DOMESTICA",
+					"user_type_id": "UTZ-ND-2"
+				},
+				"state": {
+					"classification": "30",
+					"description": "SERVIZIO_CHIUSO_FATTURATO"
+				},
+				"category": "USO CANTIERE - SOLO ACQUEDOTTO",
+				"use": "USO CANTIERE",
+				"service_begin_date": "2006-08-23",
+				"service_end_date": "2009-08-04",
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"position": {
+					"first_name": null,
+					"last_name": "GE.COS. COSTRUISCE SPA",
+					"company_name": "GE.COS. COSTRUISCE SPA",
+					"address": "STRADA DEGLI ORTI",
+					"street_number": "9999",
+					"zip_code": "36061",
+					"province": "VICENZA",
+					"city": "BASSANO DEL GRAPPA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00",
+					"city_id": "COM-A703-109",
+					"street_id": "VIA-A703-109-1865"
+				},
+				"office_address": null,
+				"zone": null,
+				"surface_area": null
+			}
+		},
+		{
+			"uid": "ANA-37-01-90771056",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "90771056",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2010-01-01",
+				"end_date": null,
+				"fiscal_id": "03951120280",
+				"vat_number": "03951120280",
+				"bank_account": null,
+				"landline": [],
+				"mobile": [],
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": null,
+					"last_name": "F.LLI GUERRIERO SRL",
+					"company_name": null,
+					"address": "VIA GOMIERO",
+					"street_number": "18",
+					"zip_code": "35010",
+					"province": "PADOVA",
+					"city": "VILLAFRANCA PADOVANA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "F.LLI GUERRIERO SRL",
+					"company_name": "F.LLI GUERRIERO SRL",
+					"address": "VIA GOMIERO",
+					"street_number": "18",
+					"zip_code": "35010",
+					"province": "PADOVA",
+					"city": "VILLAFRANCA PADOVANA",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-90771056-140963733",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "90771056",
+						"service_code": "140963733",
+						"service_type": {
+							"classification": "SR",
+							"description": "SERVIZIO_RIFIUTI",
+							"service_type_id": "TSE-SR-3"
+						},
+						"user_type": {
+							"classification": "ND",
+							"description": "NON_DOMESTICA",
+							"user_type_id": "UTZ-ND-2"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "BANCHI DI MERCATO BENI DUREVOLI",
+						"use": "NON DOMESTICI",
+						"service_begin_date": "2010-01-01",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": null,
+							"last_name": "F.LLI GUERRIERO SRL",
+							"company_name": "F.LLI GUERRIERO SRL",
+							"address": "VIA GOMIERO",
+							"street_number": "18",
+							"zip_code": "35010",
+							"province": "PADOVA",
+							"city": "VILLAFRANCA PADOVANA",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-L947-88",
+							"street_id": "VIA-L947-88-15800"
+						},
+						"office_address": null,
+						"zone": [
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-2-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-L947-88-1-2",
+								"user_type_id": "UTZ-ND-2"
+							}
+						],
+						"surface_area": []
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-90853553",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "90853553",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2015-01-01",
+				"end_date": null,
+				"fiscal_id": "PTRNDR77A19Z129G",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": [],
+				"mobile": [],
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-02-17 01:00:00",
+				"home_address": {
+					"first_name": "IOAN TOADER",
+					"last_name": "PETRAN",
+					"company_name": null,
+					"address": "VIA FIRENZE",
+					"street_number": "16",
+					"zip_code": "36065",
+					"province": "VICENZA",
+					"city": "MUSSOLENTE",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				},
+				"office_address": {
+					"first_name": "IOAN TOADER",
+					"last_name": "PETRAN",
+					"company_name": "PETRAN IOAN TOADER",
+					"address": "VIA FIRENZE",
+					"street_number": "16",
+					"zip_code": "36065",
+					"province": "VICENZA",
+					"city": "MUSSOLENTE",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-02-17 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-90853553-157663800",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "90853553",
+						"service_code": "157663800",
+						"service_type": {
+							"classification": "SR",
+							"description": "SERVIZIO_RIFIUTI",
+							"service_type_id": "TSE-SR-3"
+						},
+						"user_type": {
+							"classification": "D",
+							"description": "DOMESTICA",
+							"user_type_id": "UTZ-D-1"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "USI DOMESTICI",
+						"use": "DOMESTICI",
+						"service_begin_date": "2015-01-01",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-02-17 01:00:00",
+						"position": {
+							"first_name": "IOAN TOADER",
+							"last_name": "PETRAN",
+							"company_name": "PETRAN IOAN TOADER",
+							"address": "VIA FIRENZE",
+							"street_number": "16",
+							"zip_code": "36065",
+							"province": "VICENZA",
+							"city": "MUSSOLENTE",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-02-17 01:00:00",
+							"city_id": "COM-F829-103",
+							"street_id": "VIA-F829-103-71162"
+						},
+						"office_address": null,
+						"zone": [
+							{
+								"uid": "ZRT-F829-103-1-1",
+								"user_type_id": "UTZ-D-1"
+							},
+							{
+								"uid": "ZRT-F829-103-1-1",
+								"user_type_id": "UTZ-D-1"
+							},
+							{
+								"uid": "ZRT-F829-103-1-1",
+								"user_type_id": "UTZ-D-1"
+							},
+							{
+								"uid": "ZRT-F829-103-1-1",
+								"user_type_id": "UTZ-D-1"
+							},
+							{
+								"uid": "ZRT-F829-103-3-1",
+								"user_type_id": "UTZ-D-1"
+							}
+						],
+						"surface_area": [
+							{
+								"data_inizio": "2015-01-01",
+								"data_fine": null,
+								"value": "100",
+								"last_update": "2016-02-17 05:30:00"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"uid": "ANA-37-01-90974811",
+			"data": {
+				"label": null,
+				"company_id": "01",
+				"person_id": "90974811",
+				"state": {
+					"classification": "active",
+					"description": "active"
+				},
+				"begin_date": "2016-01-01",
+				"end_date": null,
+				"fiscal_id": "90000800285",
+				"vat_number": null,
+				"bank_account": null,
+				"landline": [],
+				"mobile": [],
+				"fax": [],
+				"email": [],
+				"notes": null,
+				"last_update": "2016-12-14 01:00:01",
+				"home_address": {
+					"first_name": null,
+					"last_name": "PRO LOCO SAN MARTINO DI LUPARI",
+					"company_name": "PRO LOCO SAN MARTINO DI LUPARI",
+					"address": "VIA CARD. AGOSTINI",
+					"street_number": "39",
+					"zip_code": "35018",
+					"province": "PADOVA",
+					"city": "SAN MARTINO DI LUPARI",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-12-15 01:00:00"
+				},
+				"office_address": {
+					"first_name": null,
+					"last_name": "PRO LOCO SAN MARTINO DI LUPARI",
+					"company_name": "PRO LOCO SAN MARTINO DI LUPARI",
+					"address": "VIA CARD. AGOSTINI",
+					"street_number": "39",
+					"zip_code": "35018",
+					"province": "PADOVA",
+					"city": "SAN MARTINO DI LUPARI",
+					"country": "ITALIA",
+					"notes": null,
+					"last_update": "2016-12-15 01:00:00"
+				}
+			},
+			"services": [
+				{
+					"uid": "SER-37-01-90974811-173800960",
+					"data": {
+						"label": null,
+						"company_id": "01",
+						"person_id": "90974811",
+						"service_code": "173800960",
+						"service_type": {
+							"classification": "SR",
+							"description": "SERVIZIO_RIFIUTI",
+							"service_type_id": "TSE-SR-3"
+						},
+						"user_type": {
+							"classification": "ND",
+							"description": "NON_DOMESTICA",
+							"user_type_id": "UTZ-ND-2"
+						},
+						"state": {
+							"classification": "11",
+							"description": "SERVIZIO_ATTIVO"
+						},
+						"category": "EVENTI CON PROD.DI RIFIUTI TEMPORANEA",
+						"use": "NON DOMESTICI",
+						"service_begin_date": "2016-01-01",
+						"service_end_date": null,
+						"notes": null,
+						"last_update": "2016-12-15 01:00:00",
+						"position": {
+							"first_name": null,
+							"last_name": "PRO LOCO SAN MARTINO DI LUPARI",
+							"company_name": "PRO LOCO SAN MARTINO DI LUPARI",
+							"address": "LARGO EUROPA",
+							"street_number": "99999",
+							"zip_code": "35018",
+							"province": "PADOVA",
+							"city": "SAN MARTINO DI LUPARI",
+							"country": "ITALIA",
+							"notes": null,
+							"last_update": "2016-12-15 01:00:00",
+							"city_id": "COM-I008-61",
+							"street_id": "VIA-I008-61-29010"
+						},
+						"office_address": null,
+						"zone": [
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							},
+							{
+								"uid": "ZRT-I008-61-1-2",
+								"user_type_id": "UTZ-ND-2"
+							}
+						],
+						"surface_area": []
+					}
+				}
+			]
+		}
+	],
+	"_links": {
+		"self": {
+			"href": "http://sis-webservices-test.servizi.ict/clienti/anagrafica-web-complete/AWB-37"
+		}
+	}
+}

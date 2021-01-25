@@ -22,31 +22,32 @@ enum ListType { Object, String, Double, Int, Null }
 
 class MergeableListType {
   final ListType listType;
-  final bool isAmbigous;
+  final bool isAmbiguous;
 
-  MergeableListType(this.listType, this.isAmbigous);
+  MergeableListType(this.listType, this.isAmbiguous);
 }
 
 MergeableListType mergeableListType(List<dynamic> list) {
   ListType t = ListType.Null;
-  bool isAmbigous = false;
+  bool isAmbiguous = false;
   list.forEach((e) {
     ListType inferredType;
-    if (e.runtimeType == 'int') {
+    if (e.runtimeType is int) {
       inferredType = ListType.Int;
-    } else if (e.runtimeType == 'double') {
+    } else if (e.runtimeType is double) {
       inferredType = ListType.Double;
-    } else if (e.runtimeType == 'string') {
+    } else if (e.runtimeType is String) {
       inferredType = ListType.String;
     } else if (e is Map) {
       inferredType = ListType.Object;
     }
     if (t != ListType.Null && t != inferredType) {
-      isAmbigous = true;
+      isAmbiguous = true;
+      print('type: $t, inferred: $inferredType');
     }
     t = inferredType;
   });
-  return MergeableListType(t, isAmbigous);
+  return MergeableListType(t, isAmbiguous);
 }
 
 String camelCase(String text) {
@@ -97,7 +98,7 @@ WithWarning<Map> mergeObj(Map obj, Map other, String path) {
           if (l.isNotEmpty) {
             clone[k] = List.filled(1, l[0]);
           }
-          if (mergeableType.isAmbigous) {
+          if (mergeableType.isAmbiguous) {
             warnings.add(newAmbiguousType('$path/$k'));
           }
         }
@@ -152,7 +153,7 @@ WithWarning<Map> mergeObjectList(List<dynamic> list, String path,
               if (l.isNotEmpty) {
                 obj[k] = List.filled(1, l[0]);
               }
-              if (mergeableType.isAmbigous) {
+              if (mergeableType.isAmbiguous) {
                 warnings.add(newAmbiguousType('$path[$i]/$k'));
               }
             }
@@ -186,6 +187,14 @@ bool isPrimitiveType(String typeName) {
 
 String fixFieldName(String name,
     {TypeDefinition typeDef, bool privateField = false}) {
+  // No prefixes.
+  var fixedName = camelCaseFirstLower(name);
+  if (privateField) {
+    return '_$fixedName';
+  } else {
+    return fixedName;
+  }
+  // Original version takes care of leading _ and digits.
   var properName = name;
   if (name.startsWith('_') || name.startsWith(RegExp(r'[0-9]'))) {
     final firstCharType = typeDef.name.substring(0, 1).toLowerCase();

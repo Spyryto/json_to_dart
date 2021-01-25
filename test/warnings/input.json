@@ -8,13 +8,15 @@
         "arr": [{
             "emptyArr": []
         }, {
-            "amb": 123
-        }]
-    }, {
-        "shouldBeDouble": 1.1,
-        "arr": [{
-            "str": "randomStr",
-            "amb": "123"
+            "amb": 123,
+            "not_ambiguous": null
+            }]
+            }, {
+                "shouldBeDouble": 1.1,
+                "arr": [{
+                    "str": "randomStr",
+                    "amb": "123",
+                    "not_ambiguous": "string"
         }]
     }],
     "emptyArr": []

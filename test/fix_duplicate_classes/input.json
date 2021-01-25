@@ -1,0 +1,34 @@
+{
+	"uid": "ANA-37-01-50446867",
+	"data": {
+		"label": null,
+		"company_id": "01",
+		"person_id": "50446867",
+		"state": {
+			"data": {
+				"description": "ACTIVE"
+			}
+		}
+	},
+	"links": {
+		"self": {
+			"href": "/self"
+		}
+	},
+	"meta": [
+		{
+			"info": null
+		},
+		{
+			"info": []
+		},
+		{
+			"info": [
+				{
+					"label": "age",
+					"value": 35
+				}
+			]
+		}
+	]
+}

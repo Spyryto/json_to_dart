@@ -207,7 +207,9 @@ class Dependency {
 }
 
 class ClassDefinition {
-  final String name;
+  static int instanceCount = 0;
+  final int id;
+  String _name;
   final bool privateFields;
   final bool newKeyword;
   final bool thisKeyword;
@@ -216,7 +218,14 @@ class ClassDefinition {
   final bool makePropertiesFinal;
   final bool typesOnly;
   final bool fieldsOnly;
+  final ClassDefinition parentClass;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
+
+  String get name => _name;
+
+  void rename(String name) {
+    _name = name;
+  }
 
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
@@ -231,7 +240,7 @@ class ClassDefinition {
   }
 
   ClassDefinition(
-    this.name, [
+    String name, [
     this.privateFields = false,
     this.newKeyword = false,
     this.thisKeyword = false,
@@ -240,7 +249,11 @@ class ClassDefinition {
     this.makePropertiesFinal = false,
     this.typesOnly = false,
     this.fieldsOnly = false,
-  ]);
+    this.parentClass,
+  ])  : _name = name,
+        id = instanceCount {
+    instanceCount++;
+  }
 
   @override
   bool operator ==(other) {
@@ -279,7 +292,9 @@ class ClassDefinition {
   }
 
   void _addTypeDef(TypeDefinition typeDef, StringBuffer sb) {
-    sb.write('${typeDef.name}');
+    var name =
+        typeDef.name == 'Null' ? 'String /* null supplied */' : typeDef.name;
+    sb.write('$name');
     if (typeDef.subtype != null) {
       sb.write('<${typeDef.subtype}>');
     }
