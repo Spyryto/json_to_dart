@@ -196,6 +196,8 @@ class ModelGenerator {
         final typeForField = c.fields[f];
         if (sameClassMapping.containsKey(typeForField.name)) {
           c.fields[f].name = sameClassMapping[typeForField.name];
+        } else if (sameClassMapping.containsKey(typeForField.subtype)) {
+          c.fields[f].subtype = sameClassMapping[typeForField.subtype];
         }
       });
     });
