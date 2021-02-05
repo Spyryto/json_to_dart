@@ -1,0 +1,42 @@
+{
+	"uid": "ANA-37-01-50446867",
+	"dati": {
+		"label": null,
+		"codice_azienda": "01",
+		"codice_anagrafico": "50446867",
+		"stato": {
+			"codifica": "ATTIVA",
+			"descrizione": "ATTIVA"
+		},
+		"data_attivazione": "1990-10-03",
+		"data_cessazione": null,
+		"codice_fiscale": "BRTGMN40L25B795G",
+		"partita_iva": null,
+		"domiciliazione_bancaria": null,
+		"telefono_fisso": [],
+		"telefono_cellulare": [],
+		"fax": [],
+		"email": [],
+		"note": null,
+		"ultimo_aggiornamento": "2016-02-17 01:00:00",
+		"residenza": {
+			"nome": "GERMANO",
+			"cognome": "BARTOLOMEI",
+			"ragione_sociale": null,
+			"belfiore": "B795",
+			"indirizzo": "VIA A. MORO",
+			"civico": "20",
+			"barrato": null,
+			"edificio": null,
+			"interno": null,
+			"piano": null,
+			"scala": null,
+			"cap": "35010",
+			"provincia": "PADOVA",
+			"comune": "CARMIGNANO DI BRENTA",
+			"nazione": "ITALIA",
+			"note": null,
+			"ultimo_aggiornamento": "2016-02-17 01:00:00"
+		}
+	}
+}

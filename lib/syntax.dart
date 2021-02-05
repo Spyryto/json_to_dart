@@ -33,8 +33,8 @@ class WithWarning<T> {
 
 class TypeDefinition {
   String name;
-  String subtype;
-  bool isAmbiguous = false;
+  String? subtype;
+  bool isAmbiguous;
   bool _isPrimitive = false;
 
   factory TypeDefinition.fromDynamic(dynamic obj, Node astNode) {
@@ -62,7 +62,8 @@ class TypeDefinition {
     return TypeDefinition(type, astNode: astNode, isAmbiguous: isAmbiguous);
   }
 
-  TypeDefinition(this.name, {this.subtype, this.isAmbiguous, Node astNode}) {
+  TypeDefinition(this.name,
+      {this.subtype, this.isAmbiguous = false, Node? astNode}) {
     if (subtype == null) {
       _isPrimitive = isPrimitiveType(name);
       if (name == 'int' && isASTLiteralDouble(astNode)) {
@@ -71,7 +72,6 @@ class TypeDefinition {
     } else {
       _isPrimitive = isPrimitiveType('$name<$subtype>');
     }
-    isAmbiguous ??= false;
   }
 
   @override
@@ -218,7 +218,7 @@ class ClassDefinition {
   final bool makePropertiesFinal;
   final bool typesOnly;
   final bool fieldsOnly;
-  final ClassDefinition parentClass;
+  final ClassDefinition? parentClass;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
 
   String get name => _name;
@@ -229,13 +229,11 @@ class ClassDefinition {
 
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
-    final keys = fields.keys;
-    keys.forEach((k) {
-      final f = fields[k];
-      if (!f.isPrimitive) {
-        dependenciesList.add(Dependency(k, f));
-      }
+
+    fields.forEach((key, type) {
+      if (!type.isPrimitive) dependenciesList.add(Dependency(key, type));
     });
+
     return dependenciesList;
   }
 
@@ -265,27 +263,19 @@ class ClassDefinition {
   }
 
   bool isSubsetOf(ClassDefinition other) {
-    final List<String> keys = fields.keys.toList();
-    final int len = keys.length;
-    for (int i = 0; i < len; i++) {
-      TypeDefinition otherTypeDef = other.fields[keys[i]];
-      if (otherTypeDef != null) {
-        TypeDefinition typeDef = fields[keys[i]];
-        if (typeDef != otherTypeDef) {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-    return true;
+    return fields.entries.every((field) {
+      var typeName = field.key;
+      var typeDefinition = field.value;
+      return other.fields.containsKey(typeName) &&
+          other.fields[typeName] == typeDefinition;
+    });
   }
 
-  dynamic hasField(TypeDefinition otherField) {
+  /* dynamic hasField(TypeDefinition otherField) {
     return fields.keys
             .firstWhere((k) => fields[k] == otherField, orElse: () => null) !=
         null;
-  }
+  } */
 
   dynamic addField(String name, TypeDefinition typeDef) {
     fields[name] = typeDef;
@@ -301,142 +291,136 @@ class ClassDefinition {
   }
 
   String get _fieldList {
-    return fields.keys.map((key) {
-      final f = fields[key];
-      final fieldName =
-          fixFieldName(key, typeDef: f, privateField: privateFields);
-      final sb = StringBuffer();
-      sb.write('\t');
+    return fields.entries.map((entry) {
+      var key = entry.key;
+      var type = entry.value;
+      final fieldName = fixFieldName(key, typeDef: type);
+      final buffer = StringBuffer();
+      buffer.write('\t');
       if (makePropertiesFinal) {
-        sb.write('final ');
+        buffer.write('final ');
       }
-      _addTypeDef(f, sb);
-      sb.write(' $fieldName;');
-      return sb.toString();
+      _addTypeDef(type, buffer);
+      buffer.write(' $fieldName;');
+      return buffer.toString();
     }).join('\n');
   }
 
   String get _gettersSetters {
-    return fields.keys.map((key) {
-      final f = fields[key];
+    return fields.entries.map((entry) {
+      var key = entry.key;
+      final type = entry.value;
       final publicFieldName =
-          fixFieldName(key, typeDef: f, privateField: false);
+          fixFieldName(key, typeDef: type, privateField: false);
       final privateFieldName =
-          fixFieldName(key, typeDef: f, privateField: true);
-      final sb = StringBuffer();
-      sb.write('\t');
-      _addTypeDef(f, sb);
-      sb.write(
+          fixFieldName(key, typeDef: type, privateField: true);
+      final buffer = StringBuffer();
+      buffer.write('\t');
+      _addTypeDef(type, buffer);
+      buffer.write(
           ' get $publicFieldName => $privateFieldName;\n\tset $publicFieldName(');
-      _addTypeDef(f, sb);
-      sb.write(' $publicFieldName) => $privateFieldName = $publicFieldName;');
-      return sb.toString();
+      _addTypeDef(type, buffer);
+      buffer
+          .write(' $publicFieldName) => $privateFieldName = $publicFieldName;');
+      return buffer.toString();
     }).join('\n');
   }
 
   String get _defaultPrivateConstructor {
-    final sb = StringBuffer();
-    sb.write('\t$name({');
-    var i = 0;
-    var len = fields.keys.length - 1;
-    fields.keys.forEach((key) {
-      final f = fields[key];
+    final buffer = StringBuffer();
+    buffer.write('\t$name({');
+
+    fields.forEach((key, type) {
       final publicFieldName =
-          fixFieldName(key, typeDef: f, privateField: false);
+          fixFieldName(key, typeDef: type, privateField: false);
       if (makePropertiesRequired) {
-        sb.write('@required ');
+        buffer.write('@required ');
       }
-      _addTypeDef(f, sb);
-      sb.write(' $publicFieldName');
-      if (i != len) {
-        sb.write(', ');
-      }
-      i++;
+      _addTypeDef(type, buffer);
+      buffer.write(' $publicFieldName,');
     });
-    sb.write('}) {\n');
-    fields.keys.forEach((key) {
-      final f = fields[key];
+
+    buffer.write('}) {\n');
+
+    fields.forEach((key, type) {
       final publicFieldName =
-          fixFieldName(key, typeDef: f, privateField: false);
+          fixFieldName(key, typeDef: type, privateField: false);
       final privateFieldName =
-          fixFieldName(key, typeDef: f, privateField: true);
-      sb.write('this.$privateFieldName = $publicFieldName;\n');
+          fixFieldName(key, typeDef: type, privateField: true);
+      buffer.write('this.$privateFieldName = $publicFieldName;\n');
     });
-    sb.write('}');
-    return sb.toString();
+
+    buffer.write('}');
+    return buffer.toString();
   }
 
   String get _defaultConstructor {
-    final sb = StringBuffer();
-    sb.write('\t$name({');
-    var i = 0;
-    var len = fields.keys.length - 1;
-    fields.keys.forEach((key) {
-      final f = fields[key];
-      final fieldName =
-          fixFieldName(key, typeDef: f, privateField: privateFields);
-      if (makePropertiesRequired) {
-        sb.write('@required this.$fieldName');
-      } else {
-        sb.write('this.$fieldName');
-      }
+    final buffer = StringBuffer();
+    buffer.write('\t$name({');
 
-      if (i != len) {
-        sb.write(', ');
+    fields.forEach((key, type) {
+      final fieldName =
+          fixFieldName(key, typeDef: type, privateField: privateFields);
+      if (makePropertiesRequired) {
+        buffer.write('@required this.$fieldName');
+      } else {
+        buffer.write('this.$fieldName');
       }
-      i++;
     });
-    sb.write('});');
-    return sb.toString();
+
+    buffer.write('});');
+    return buffer.toString();
   }
 
   String get _jsonParseFunc {
-    final sb = StringBuffer();
+    final buffer = StringBuffer();
     if (makePropertiesFinal) {
-      sb.write('\tfactory $name');
-      sb.write('.fromJson(Map<String, dynamic> json) {\n');
-      sb.write('\treturn $name(\n');
+      buffer.write('\tfactory $name');
+      buffer.write('.fromJson(Map<String, dynamic> json) {\n');
+      buffer.write('\treturn $name(\n');
       // sb.write('.fromJson(Map<String, dynamic> json) => $name(\n');
-      fields.keys.forEach((k) {
-        sb.write(
-            '\t\t${fields[k].jsonParseExpressionFinal(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+
+      fields.forEach((key, type) {
+        buffer.write(
+            '\t\t${type.jsonParseExpressionFinal(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
-      sb.write('\t);');
-      sb.write('}');
-      return sb.toString();
+
+      buffer.write('\t);');
+      buffer.write('}');
+      return buffer.toString();
     } else {
-      sb.write('\t$name');
-      sb.write('.fromJson(Map<String, dynamic> json) {\n');
-      fields.keys.forEach((k) {
-        sb.write(
-            '\t\t${fields[k].jsonParseExpression(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+      buffer.write('\t$name');
+      buffer.write('.fromJson(Map<String, dynamic> json) {\n');
+      fields.forEach((key, type) {
+        buffer.write(
+            '\t\t${type.jsonParseExpression(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
-      sb.write('\t}');
-      return sb.toString();
+      buffer.write('\t}');
+      return buffer.toString();
     }
   }
 
   String get _jsonGenFunc {
-    final sb = StringBuffer();
+    final buffer = StringBuffer();
     if (collectionLiterals) {
-      sb.write(
+      buffer.write(
           '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = <String, dynamic>{};\n');
     } else {
       if (newKeyword) {
-        sb.write(
+        buffer.write(
             '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = new Map<String, dynamic>();\n');
       } else {
-        sb.write(
+        buffer.write(
             '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = Map<String, dynamic>();\n');
       }
     }
-    fields.keys.forEach((k) {
-      sb.write(
-          '\t\t${fields[k].toJsonExpression(k, privateFields, thisKeyword)}\n');
+    fields.forEach((key, type) {
+      buffer.write(
+          '\t\t${type.toJsonExpression(key, privateFields, thisKeyword)}\n');
     });
-    sb.write('\t\treturn __data__;\n');
-    sb.write('\t}');
-    return sb.toString();
+    buffer.write('\t\treturn __data__;\n');
+    buffer.write('\t}');
+    return buffer.toString();
   }
 
   @override

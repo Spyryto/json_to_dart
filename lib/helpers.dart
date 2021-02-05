@@ -186,7 +186,7 @@ bool isPrimitiveType(String typeName) {
 }
 
 String fixFieldName(String name,
-    {TypeDefinition typeDef, bool privateField = false}) {
+    {required TypeDefinition typeDef, bool privateField = false}) {
   // No prefixes.
   var fixedName = camelCaseFirstLower(name);
   if (privateField) {
@@ -251,7 +251,7 @@ Node navigateNode(Node astNode, String path) {
 
 final _pattern = RegExp(r'([0-9]+)\.{0,1}([0-9]*)e(([-0-9]+))');
 
-bool isASTLiteralDouble(Node astNode) {
+bool isASTLiteralDouble(Node? astNode) {
   if (astNode != null && astNode is LiteralNode) {
     final LiteralNode literalNode = astNode;
     final containsPoint = literalNode.raw.contains('.');

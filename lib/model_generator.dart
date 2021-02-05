@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:meta/meta.dart';
 
 import 'package:dart_style/dart_style.dart';
@@ -46,7 +45,7 @@ class ModelGenerator {
     bool typesOnly = false,
     bool fieldsOnly = false,
     dynamic hints,
-    Map<String, String> userRenameRules,
+    Map<String, String>? userRenameRules,
   })  : _privateFields = privateFields,
         _newKeyword = newKeyword,
         _thisKeyword = thisKeyword,
@@ -58,8 +57,9 @@ class ModelGenerator {
         hints = hints ??= <Hint>[],
         userRenameRules = userRenameRules ?? {};
 
-  Hint _hintForPath(String path) {
-    return hints.firstWhere((h) => h.path == path, orElse: () => null);
+  Hint? _hintForPath(String path) {
+    var pathHints = hints.where((h) => h.path == path);
+    return pathHints.isNotEmpty ? pathHints.first : null;
   }
 
   List<Warning> _generateClassDefinition(
@@ -95,12 +95,13 @@ class ModelGenerator {
     return warnings;
   }
 
-  ClassDefinition _parentClass(String className) => allClasses.lastWhere(
-      (class_) =>
-          class_.dependencies.isNotEmpty &&
-          class_.dependencies
-              .any((dependency) => dependency.className == className),
-      orElse: () => null);
+  ClassDefinition? _parentClass(String className) {
+    var parentClasses = allClasses.where((class_) =>
+        class_.dependencies.isNotEmpty &&
+        class_.dependencies
+            .any((dependency) => dependency.className == className));
+    return parentClasses.isNotEmpty ? parentClasses.last : null;
+  }
 
   void _generateTypeDefinitions(
       Iterable<String> keys,
@@ -135,8 +136,8 @@ class ModelGenerator {
   }
 
   void _mapSimilarClasses(ClassDefinition classDefinition) {
-    final similarClass = allClasses.firstWhere((cd) => cd == classDefinition,
-        orElse: () => null);
+    var similarClasses = allClasses.where((cd) => cd == classDefinition);
+    var similarClass = similarClasses.isNotEmpty ? similarClasses.first : null;
     if (similarClass != null) {
       final similarClassName = similarClass.name;
       final currentClassName = classDefinition.name;
@@ -150,7 +151,6 @@ class ModelGenerator {
       String path, List<Warning> warnings, Node astNode) {
     final dependencies = classDefinition.dependencies;
     dependencies.forEach((dependency) {
-      List<Warning> warns;
       if (dependency.typeDef.name == 'List') {
         // only generate dependency class if the array is not empty
         if (jsonRawData[dependency.name].length > 0) {
@@ -166,16 +166,13 @@ class ModelGenerator {
             toAnalyze = jsonRawData[dependency.name][0];
           }
           final node = navigateNode(astNode, dependency.name);
-          warns = _generateClassDefinition(dependency.className, toAnalyze,
-              '$path/${dependency.name}', node);
+          warnings.addAll(_generateClassDefinition(dependency.className,
+              toAnalyze, '$path/${dependency.name}', node));
         }
       } else {
         final node = navigateNode(astNode, dependency.name);
-        warns = _generateClassDefinition(dependency.className,
-            jsonRawData[dependency.name], '$path/${dependency.name}', node);
-      }
-      if (warns != null) {
-        warnings.addAll(warns);
+        warnings.addAll(_generateClassDefinition(dependency.className,
+            jsonRawData[dependency.name], '$path/${dependency.name}', node));
       }
     });
   }
@@ -189,15 +186,17 @@ class ModelGenerator {
     final astNode = parse(rawJson, Settings());
     List<Warning> warnings =
         _generateClassDefinition(_rootClassName, jsonRawData, '', astNode);
-    // after generating all classes, replace the omited similar classes.
-    allClasses.forEach((c) {
-      final fieldsKeys = c.fields.keys;
-      fieldsKeys.forEach((f) {
-        final typeForField = c.fields[f];
+
+    // After generating all classes, replace the omitted similar classes.
+    allClasses.forEach((class_) {
+      final fieldsKeys = class_.fields.keys;
+      fieldsKeys.forEach((fieldKey) {
+        final typeForField = class_.fields[fieldKey];
         if (sameClassMapping.containsKey(typeForField.name)) {
-          c.fields[f].name = sameClassMapping[typeForField.name];
+          class_.fields[fieldKey].name = sameClassMapping[typeForField.name];
         } else if (sameClassMapping.containsKey(typeForField.subtype)) {
-          c.fields[f].subtype = sameClassMapping[typeForField.subtype];
+          class_.fields[fieldKey].subtype =
+              sameClassMapping[typeForField.subtype];
         }
       });
     });
@@ -246,7 +245,10 @@ class ModelGenerator {
 
     var userRenamings = classInfo
         .where((info) => userRenameRules.containsKey(info.name))
-        .map((info) => MapEntry(info.self, userRenameRules[info.name]));
+        .map((info) => MapEntry(info.self, userRenameRules[info.name]!));
+
+    classInfo.map((info) => MapEntry(info.self, userRenameRules[info.name]));
+    //.where((info) => userRenameRules.containsKey(info.name))
 
     if (userRenamings.isNotEmpty) {
       print('-' * 10 + ' user' + '-' * 10);
@@ -289,7 +291,7 @@ class ModelGenerator {
     var dependencyClasses = allClasses.where((c) =>
         c.dependencies
             .any((dependency) => dependency.typeDef.name == className) &&
-        c.name == class_.parentClass.name);
+        c.name == class_.parentClass?.name);
 
     dependencyClasses.forEach((dependency) {
       // Searches for fields to rename.
@@ -318,12 +320,12 @@ class ClassInfo {
   final ClassDefinition self;
   final String name;
   int count;
-  final ClassDefinition parent;
+  final ClassDefinition? parent;
 
   ClassInfo({
-    @required this.self,
-    @required this.name,
-    @required this.count,
-    @required this.parent,
+    required this.self,
+    required this.name,
+    required this.count,
+    this.parent,
   });
 }
