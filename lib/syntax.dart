@@ -114,7 +114,7 @@ class TypeDefinition {
     String fieldKey =
         fixFieldName(key, typeDef: this, privateField: privateField);
     if (thisKeyword) {
-      fieldKey = 'this.' + fieldKey;
+      fieldKey = 'this.$fieldKey';
     }
     if (isPrimitive) {
       if (name == 'List') {
@@ -361,9 +361,9 @@ class ClassDefinition {
       final fieldName =
           fixFieldName(key, typeDef: type, privateField: privateFields);
       if (makePropertiesRequired) {
-        buffer.write('@required this.$fieldName');
+        buffer.write('@required this.$fieldName, ');
       } else {
-        buffer.write('this.$fieldName');
+        buffer.write('this.$fieldName, ');
       }
     });
 

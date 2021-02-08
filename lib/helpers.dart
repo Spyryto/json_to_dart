@@ -2,6 +2,7 @@ import 'dart:convert' as convert;
 import 'dart:math';
 import 'package:json_ast/json_ast.dart'
     show Node, ObjectNode, ArrayNode, LiteralNode;
+import 'package:json_ast/tokenize.dart';
 import 'package:json_to_dart/syntax.dart';
 
 const Map<String, bool> PRIMITIVE_TYPES = {
@@ -28,7 +29,7 @@ class MergeableListType {
 }
 
 MergeableListType mergeableListType(List<dynamic> list) {
-  ListType t = ListType.Null;
+  ListType type = ListType.Null;
   bool isAmbiguous = false;
   list.forEach((e) {
     ListType inferredType;
@@ -40,19 +41,21 @@ MergeableListType mergeableListType(List<dynamic> list) {
       inferredType = ListType.String;
     } else if (e is Map) {
       inferredType = ListType.Object;
+    } else {
+      inferredType = ListType.Null;
     }
-    if (t != ListType.Null && t != inferredType) {
+    if (type != ListType.Null && type != inferredType) {
       isAmbiguous = true;
-      print('type: $t, inferred: $inferredType');
+      print('type: $type, inferred: $inferredType');
     }
-    t = inferredType;
+    type = inferredType;
   });
-  return MergeableListType(t, isAmbiguous);
+  return MergeableListType(type, isAmbiguous);
 }
 
 String camelCase(String text) {
   String capitalize(Match m) =>
-      m[0].substring(0, 1).toUpperCase() + m[0].substring(1);
+      m[0]!.substring(0, 1).toUpperCase() + m[0]!.substring(1);
   String skip(String s) => '';
   return text.splitMapJoin(RegExp(r'[a-zA-Z0-9]+'),
       onMatch: capitalize, onNonMatch: skip);
@@ -227,10 +230,11 @@ String getTypeName(dynamic obj) {
 }
 
 Node navigateNode(Node astNode, String path) {
-  Node node;
+  Node node = astNode;
   if (astNode is ObjectNode) {
     final ObjectNode objectNode = astNode;
-    final propertyNode = objectNode.children.firstWhere((final prop) {
+    final PropertyNode? propertyNode =
+        objectNode.children.firstWhere((final prop) {
       return prop.key.value == path;
     }, orElse: () {
       return null;
@@ -260,10 +264,10 @@ bool isASTLiteralDouble(Node? astNode) {
       var isDouble = containsPoint;
       if (containsExponent) {
         final matches = _pattern.firstMatch(literalNode.raw);
-        if (matches != null) {
-          final integer = matches[1];
-          final comma = matches[2];
-          final exponent = matches[3];
+        if (matches != null && matches.groupCount >= 3) {
+          final integer = matches[1]!;
+          final comma = matches[2]!;
+          final exponent = matches[3]!;
           isDouble = _isDoubleWithExponential(integer, comma, exponent);
         }
       }
@@ -277,15 +281,12 @@ bool _isDoubleWithExponential(String integer, String comma, String exponent) {
   final integerNumber = int.tryParse(integer) ?? 0;
   final exponentNumber = int.tryParse(exponent) ?? 0;
   final commaNumber = int.tryParse(comma) ?? 0;
-  if (exponentNumber != null) {
-    if (exponentNumber == 0) {
-      return commaNumber > 0;
-    }
-    if (exponentNumber > 0) {
-      return exponentNumber < comma.length && commaNumber > 0;
-    }
-    return commaNumber > 0 ||
-        ((integerNumber.toDouble() * pow(10, exponentNumber)).remainder(1) > 0);
+  if (exponentNumber == 0) {
+    return commaNumber > 0;
   }
-  return false;
+  if (exponentNumber > 0) {
+    return exponentNumber < comma.length && commaNumber > 0;
+  }
+  return commaNumber > 0 ||
+      ((integerNumber.toDouble() * pow(10, exponentNumber)).remainder(1) > 0);
 }

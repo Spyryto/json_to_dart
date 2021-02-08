@@ -189,15 +189,13 @@ class ModelGenerator {
 
     // After generating all classes, replace the omitted similar classes.
     allClasses.forEach((class_) {
-      final fieldsKeys = class_.fields.keys;
-      fieldsKeys.forEach((fieldKey) {
-        final typeForField = class_.fields[fieldKey];
-        if (sameClassMapping.containsKey(typeForField.name)) {
-          class_.fields[fieldKey].name = sameClassMapping[typeForField.name];
-        } else if (sameClassMapping.containsKey(typeForField.subtype)) {
-          class_.fields[fieldKey].subtype =
-              sameClassMapping[typeForField.subtype];
+      class_.fields.updateAll((key, type) {
+        if (sameClassMapping.containsKey(type.name)) {
+          type.name = sameClassMapping[type.name]!;
+        } else if (sameClassMapping.containsKey(type.subtype)) {
+          type.subtype = sameClassMapping[type.subtype];
         }
+        return type;
       });
     });
 
