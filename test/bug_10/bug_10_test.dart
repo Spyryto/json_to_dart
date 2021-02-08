@@ -29,7 +29,7 @@ void main() {
     test('Generated class should correctly parse JSON for bug 10', () async {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      var sampleMap = json.decode(jsonRawData) as Map<String, dynamic>;
       final bugTen = BugTen.fromJson(sampleMap);
       expect(bugTen, isNot(isNull));
       expect(bugTen.glossary, isNot(isNull));

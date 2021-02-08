@@ -13,7 +13,7 @@ void main() {
         () async {
       final jsonPath = normalize(join(currentDirectory, 'input--ok.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      var sampleMap = json.decode(jsonRawData) as Map<String, dynamic>;
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));
@@ -59,7 +59,7 @@ void main() {
         () async {
       final jsonPath = normalize(join(currentDirectory, 'input--missing.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      var sampleMap = json.decode(jsonRawData) as Map<String, dynamic>;
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));
