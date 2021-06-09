@@ -218,7 +218,7 @@ class ClassDefinition {
   final bool makePropertiesFinal;
   final bool typesOnly;
   final bool fieldsOnly;
-  final ClassDefinition parentClass;
+  final ClassDefinition? parentClass;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
 
   String get name => _name;
@@ -229,11 +229,9 @@ class ClassDefinition {
 
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
-    final keys = fields.keys;
-    keys.forEach((k) {
-      final f = fields[k];
-      if (!f.isPrimitive) {
-        dependenciesList.add(Dependency(k, f));
+    fields.forEach((key, field) {
+      if (!field.isPrimitive) {
+        dependenciesList.add(Dependency(key, field));
       }
     });
     return dependenciesList;
