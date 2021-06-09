@@ -33,7 +33,7 @@ class WithWarning<T> {
 
 class TypeDefinition {
   String name;
-  String subtype;
+  String? subtype;
   bool isAmbiguous = false;
   bool _isPrimitive = false;
 
@@ -62,7 +62,7 @@ class TypeDefinition {
     return TypeDefinition(type, astNode: astNode, isAmbiguous: isAmbiguous);
   }
 
-  TypeDefinition(this.name, {this.subtype, this.isAmbiguous, Node astNode}) {
+  TypeDefinition(this.name, {this.subtype, bool? isAmbiguous, Node? astNode}) {
     if (subtype == null) {
       _isPrimitive = isPrimitiveType(name);
       if (name == 'int' && isASTLiteralDouble(astNode)) {
