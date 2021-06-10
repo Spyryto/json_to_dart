@@ -395,9 +395,9 @@ class ClassDefinition {
       sb.write('.fromJson(Map<String, dynamic> json) {\n');
       sb.write('\treturn $name(\n');
       // sb.write('.fromJson(Map<String, dynamic> json) => $name(\n');
-      fields.keys.forEach((k) {
+      fields.forEach((key, field) {
         sb.write(
-            '\t\t${fields[k].jsonParseExpressionFinal(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+            '\t\t${field.jsonParseExpressionFinal(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
       sb.write('\t);');
       sb.write('}');
@@ -405,9 +405,9 @@ class ClassDefinition {
     } else {
       sb.write('\t$name');
       sb.write('.fromJson(Map<String, dynamic> json) {\n');
-      fields.keys.forEach((k) {
+      fields.forEach((key, field) {
         sb.write(
-            '\t\t${fields[k].jsonParseExpression(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+            '\t\t${field.jsonParseExpression(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
       sb.write('\t}');
       return sb.toString();
@@ -428,9 +428,9 @@ class ClassDefinition {
             '\tMap<String, dynamic> toJson() {\n\t\tfinal __data__ = Map<String, dynamic>();\n');
       }
     }
-    fields.keys.forEach((k) {
+    fields.forEach((key, field) {
       sb.write(
-          '\t\t${fields[k].toJsonExpression(k, privateFields, thisKeyword)}\n');
+          '\t\t${field.toJsonExpression(key, privateFields, thisKeyword)}\n');
     });
     sb.write('\t\treturn __data__;\n');
     sb.write('\t}');
