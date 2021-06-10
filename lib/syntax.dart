@@ -1,6 +1,8 @@
 import 'package:json_ast/json_ast.dart' show Node;
 import 'package:json_to_dart/helpers.dart';
 
+import 'map_extensions.dart';
+
 const String emptyListWarn = 'list is empty';
 const String ambiguousListWarn = 'list is ambiguous';
 const String ambiguousTypeWarn = 'type is ambiguous';
@@ -262,22 +264,10 @@ class ClassDefinition {
     return false;
   }
 
-  bool isSubsetOf(ClassDefinition other) {
-    final List<String> keys = fields.keys.toList();
-    final int len = keys.length;
-    for (int i = 0; i < len; i++) {
-      TypeDefinition otherTypeDef = other.fields[keys[i]];
-      if (otherTypeDef != null) {
-        TypeDefinition typeDef = fields[keys[i]];
-        if (typeDef != otherTypeDef) {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-    return true;
-  }
+  bool isSubsetOf(ClassDefinition other) => fields.every((name, type) {
+        var otherType = other.fields[name];
+        return otherType != null && otherType == type;
+      });
 
   dynamic hasField(TypeDefinition otherField) {
     return fields.keys
