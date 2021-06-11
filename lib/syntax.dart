@@ -269,12 +269,6 @@ class ClassDefinition {
         return otherType != null && otherType == type;
       });
 
-  dynamic hasField(TypeDefinition otherField) {
-    return fields.keys
-            .firstWhere((k) => fields[k] == otherField, orElse: () => null) !=
-        null;
-  }
-
   dynamic addField(String name, TypeDefinition typeDef) {
     fields[name] = typeDef;
   }
