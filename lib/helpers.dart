@@ -4,6 +4,8 @@ import 'package:json_ast/json_ast.dart'
     show Node, ObjectNode, ArrayNode, LiteralNode;
 import 'package:json_to_dart/syntax.dart';
 
+import 'list_extensions.dart';
+
 const Map<String, bool> PRIMITIVE_TYPES = {
   'int': true,
   'double': true,
@@ -226,23 +228,17 @@ String getTypeName(dynamic obj) {
   }
 }
 
-Node navigateNode(Node astNode, String path) {
-  Node node;
+Node? navigateNode(Node astNode, String path) {
+  Node? node;
   if (astNode is ObjectNode) {
     final ObjectNode objectNode = astNode;
-    final propertyNode = objectNode.children.firstWhere((final prop) {
-      return prop.key.value == path;
-    }, orElse: () {
-      return null;
-    });
-    if (propertyNode != null) {
-      node = propertyNode.value;
-    }
-  }
-  if (astNode is ArrayNode) {
+    final propertyNode = objectNode.children
+        .firstElementWhere((final property) => property.key.value == path);
+    node = propertyNode?.value;
+  } else if (astNode is ArrayNode) {
     final ArrayNode arrayNode = astNode;
     final index = int.tryParse(path);
-    if (index != null && arrayNode.children.length > index) {
+    if (index is int && index < arrayNode.children.length) {
       node = arrayNode.children[index];
     }
   }
