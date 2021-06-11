@@ -257,9 +257,9 @@ bool isASTLiteralDouble(Node? astNode) {
       if (containsExponent) {
         final matches = _pattern.firstMatch(literalNode.raw);
         if (matches != null) {
-          final integer = matches[1];
-          final comma = matches[2];
-          final exponent = matches[3];
+          final integer = matches[1] ?? '';
+          final comma = matches[2] ?? '';
+          final exponent = matches[3] ?? '';
           isDouble = _isDoubleWithExponential(integer, comma, exponent);
         }
       }
@@ -271,7 +271,7 @@ bool isASTLiteralDouble(Node? astNode) {
 
 bool _isDoubleWithExponential(String integer, String comma, String exponent) {
   final integerNumber = int.tryParse(integer) ?? 0;
-  final exponentNumber = int.tryParse(exponent) ?? 0;
+  final exponentNumber = int.tryParse(exponent);
   final commaNumber = int.tryParse(comma) ?? 0;
   if (exponentNumber != null) {
     if (exponentNumber == 0) {
