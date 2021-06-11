@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:meta/meta.dart';
 
 import 'package:dart_style/dart_style.dart';
@@ -321,9 +320,9 @@ class ClassInfo {
   final ClassDefinition parent;
 
   ClassInfo({
-    @required this.self,
-    @required this.name,
-    @required this.count,
-    @required this.parent,
+    required this.self,
+    required this.name,
+    required this.count,
+    required this.parent,
   });
 }
