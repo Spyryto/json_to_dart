@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 import 'dart:math';
+
 import 'package:json_ast/json_ast.dart'
     show Node, ObjectNode, ArrayNode, LiteralNode;
 import 'package:json_to_dart/syntax.dart';
@@ -42,6 +43,8 @@ MergeableListType mergeableListType(List<dynamic> list) {
       inferredType = ListType.String;
     } else if (e is Map) {
       inferredType = ListType.Object;
+    } else {
+      inferredType = ListType.Null;
     }
     if (t != ListType.Null && t != inferredType) {
       isAmbiguous = true;
@@ -54,7 +57,7 @@ MergeableListType mergeableListType(List<dynamic> list) {
 
 String camelCase(String text) {
   String capitalize(Match m) =>
-      m[0].substring(0, 1).toUpperCase() + m[0].substring(1);
+      m[0]!.substring(0, 1).toUpperCase() + m[0]!.substring(1);
   String skip(String s) => '';
   return text.splitMapJoin(RegExp(r'[a-zA-Z0-9]+'),
       onMatch: capitalize, onNonMatch: skip);
@@ -84,7 +87,7 @@ WithWarning<Map> mergeObj(Map obj, Map other, String path) {
         if (t == 'int' && otherType == 'double') {
           // if double was found instead of int, assign the double
           clone[k] = v;
-        } else if (clone[k].runtimeType != 'double' && v.runtimeType != 'int') {
+        } else if (clone[k].runtimeType is! double && v.runtimeType is! int) {
           // if types are not equal, then
           warnings.add(newAmbiguousType('$path/$k'));
         }
