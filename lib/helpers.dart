@@ -186,7 +186,7 @@ bool isPrimitiveType(String typeName) {
 }
 
 String fixFieldName(String name,
-    {TypeDefinition typeDef, bool privateField = false}) {
+    {required TypeDefinition typeDef, bool privateField = false}) {
   // No prefixes.
   var fixedName = camelCaseFirstLower(name);
   if (privateField) {
