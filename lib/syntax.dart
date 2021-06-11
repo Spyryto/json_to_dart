@@ -39,7 +39,7 @@ class TypeDefinition {
   bool isAmbiguous = false;
   bool _isPrimitive = false;
 
-  factory TypeDefinition.fromDynamic(dynamic obj, Node astNode) {
+  factory TypeDefinition.fromDynamic(dynamic obj, Node? astNode) {
     bool isAmbiguous = false;
     final type = getTypeName(obj);
     if (type == 'List') {
