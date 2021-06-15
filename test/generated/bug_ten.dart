@@ -1,149 +1,145 @@
+//@dart=2.12
+
+//@dart=2.12
+
 class BugTen {
-  Glossary glossary;
+  final Glossary glossary;
 
-  BugTen({this.glossary});
+  BugTen({required this.glossary});
 
-  BugTen.fromJson(Map<String, dynamic> json) {
-    glossary = json['glossary'] != null
-        ? Glossary.fromJson(json['glossary'])
-        : null;
+  factory BugTen.fromJson(Map<String, dynamic> json) {
+    return BugTen(
+      glossary: Glossary.fromJson(json['glossary']),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (glossary != null) {
-      data['glossary'] = glossary.toJson();
-    }
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['glossary'] = glossary.toJson();
+    return __data__;
   }
 }
 
 class Glossary {
-  String title;
-  GlossDiv glossDiv;
+  final String title;
+  final GlossDiv glossDiv;
 
-  Glossary({this.title, this.glossDiv});
+  Glossary({required this.title, required this.glossDiv});
 
-  Glossary.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    glossDiv = json['GlossDiv'] != null
-        ? GlossDiv.fromJson(json['GlossDiv'])
-        : null;
+  factory Glossary.fromJson(Map<String, dynamic> json) {
+    return Glossary(
+      title: json['title'],
+      glossDiv: GlossDiv.fromJson(json['GlossDiv']),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
-    if (glossDiv != null) {
-      data['GlossDiv'] = glossDiv.toJson();
-    }
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['title'] = title;
+    __data__['GlossDiv'] = glossDiv.toJson();
+    return __data__;
   }
 }
 
 class GlossDiv {
-  String title;
-  GlossList glossList;
+  final String title;
+  final GlossList glossList;
 
-  GlossDiv({this.title, this.glossList});
+  GlossDiv({required this.title, required this.glossList});
 
-  GlossDiv.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    glossList = json['GlossList'] != null
-        ? GlossList.fromJson(json['GlossList'])
-        : null;
+  factory GlossDiv.fromJson(Map<String, dynamic> json) {
+    return GlossDiv(
+      title: json['title'],
+      glossList: GlossList.fromJson(json['GlossList']),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
-    if (glossList != null) {
-      data['GlossList'] = glossList.toJson();
-    }
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['title'] = title;
+    __data__['GlossList'] = glossList.toJson();
+    return __data__;
   }
 }
 
 class GlossList {
-  GlossEntry glossEntry;
+  final GlossEntry glossEntry;
 
-  GlossList({this.glossEntry});
+  GlossList({required this.glossEntry});
 
-  GlossList.fromJson(Map<String, dynamic> json) {
-    glossEntry = json['GlossEntry'] != null
-        ? GlossEntry.fromJson(json['GlossEntry'])
-        : null;
+  factory GlossList.fromJson(Map<String, dynamic> json) {
+    return GlossList(
+      glossEntry: GlossEntry.fromJson(json['GlossEntry']),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (glossEntry != null) {
-      data['GlossEntry'] = glossEntry.toJson();
-    }
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['GlossEntry'] = glossEntry.toJson();
+    return __data__;
   }
 }
 
 class GlossEntry {
-  String iD;
-  String sortAs;
-  String glossTerm;
-  String acronym;
-  String abbrev;
-  GlossDef glossDef;
-  String glossSee;
+  final String iD;
+  final String sortAs;
+  final String glossTerm;
+  final String acronym;
+  final String abbrev;
+  final GlossDef glossDef;
+  final String glossSee;
 
   GlossEntry(
-      {this.iD,
-      this.sortAs,
-      this.glossTerm,
-      this.acronym,
-      this.abbrev,
-      this.glossDef,
-      this.glossSee});
+      {required this.iD,
+      required this.sortAs,
+      required this.glossTerm,
+      required this.acronym,
+      required this.abbrev,
+      required this.glossDef,
+      required this.glossSee});
 
-  GlossEntry.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'];
-    sortAs = json['SortAs'];
-    glossTerm = json['GlossTerm'];
-    acronym = json['Acronym'];
-    abbrev = json['Abbrev'];
-    glossDef = json['GlossDef'] != null
-        ? GlossDef.fromJson(json['GlossDef'])
-        : null;
-    glossSee = json['GlossSee'];
+  factory GlossEntry.fromJson(Map<String, dynamic> json) {
+    return GlossEntry(
+      iD: json['ID'],
+      sortAs: json['SortAs'],
+      glossTerm: json['GlossTerm'],
+      acronym: json['Acronym'],
+      abbrev: json['Abbrev'],
+      glossDef: GlossDef.fromJson(json['GlossDef']),
+      glossSee: json['GlossSee'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['SortAs'] = sortAs;
-    data['GlossTerm'] = glossTerm;
-    data['Acronym'] = acronym;
-    data['Abbrev'] = abbrev;
-    if (glossDef != null) {
-      data['GlossDef'] = glossDef.toJson();
-    }
-    data['GlossSee'] = glossSee;
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['ID'] = iD;
+    __data__['SortAs'] = sortAs;
+    __data__['GlossTerm'] = glossTerm;
+    __data__['Acronym'] = acronym;
+    __data__['Abbrev'] = abbrev;
+    __data__['GlossDef'] = glossDef.toJson();
+    __data__['GlossSee'] = glossSee;
+    return __data__;
   }
 }
 
 class GlossDef {
-  String para;
-  List<String> glossSeeAlso;
+  final String para;
+  final List<String> glossSeeAlso;
 
-  GlossDef({this.para, this.glossSeeAlso});
+  GlossDef({required this.para, required this.glossSeeAlso});
 
-  GlossDef.fromJson(Map<String, dynamic> json) {
-    para = json['para'];
-    glossSeeAlso = json['GlossSeeAlso'].cast<String>();
+  factory GlossDef.fromJson(Map<String, dynamic> json) {
+    return GlossDef(
+      para: json['para'],
+      glossSeeAlso: json['GlossSeeAlso'].cast<String>(),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['para'] = para;
-    data['GlossSeeAlso'] = glossSeeAlso;
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['para'] = para;
+    __data__['GlossSeeAlso'] = glossSeeAlso;
+    return __data__;
   }
 }

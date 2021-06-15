@@ -165,13 +165,16 @@ class TypeDefinition {
     } else if (name == 'List') {
       // list of class
       if (newKeyword) {
-        return "$fieldKey : json['$key'] != null ? List<$subtype>.from(json['$key'].map((x) => new $subtype.fromJson(x))) : null,";
+        // return "$fieldKey : json['$key'] != null ? List<$subtype>.from(json['$key'].map((x) => new $subtype.fromJson(x))) : null,";
+        return "$fieldKey : List<$subtype>.from(json['$key'].map((x) => new $subtype.fromJson(x))),";
       } else {
-        return "$fieldKey : json['$key'] != null ? List<$subtype>.from(json['$key'].map((x) => $subtype.fromJson(x))) : null,";
+        // return "$fieldKey : json['$key'] != null ? List<$subtype>.from(json['$key'].map((x) => $subtype.fromJson(x))) : null,";
+        return "$fieldKey : List<$subtype>.from(json['$key'].map((x) => $subtype.fromJson(x))),";
       }
     } else {
       // class
-      return "$fieldKey : json['$key'] != null ? ${_buildParseClass(jsonKey, newKeyword)} : null,";
+      // return "$fieldKey : json['$key'] != null ? ${_buildParseClass(jsonKey, newKeyword)} : null,";
+      return '$fieldKey : ${_buildParseClass(jsonKey, newKeyword)},';
     }
   }
 
@@ -186,14 +189,10 @@ class TypeDefinition {
       return "__data__['$key'] = $thisKey;";
     } else if (name == 'List') {
       // class list
-      return """if ($thisKey != null) {
-      __data__['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();
-    }""";
+      return """__data__['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();""";
     } else {
       // class
-      return """if ($thisKey != null) {
-      __data__['$key'] = ${_buildToJsonClass(thisKey)};
-    }""";
+      return """__data__['$key'] = ${_buildToJsonClass(thisKey)};""";
     }
   }
 }

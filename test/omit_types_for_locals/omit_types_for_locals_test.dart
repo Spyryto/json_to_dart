@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import 'package:json_to_dart/utils.dart';
 
-Future<void> main() async {
+void main() async {
   final currentDirectory = dirname(scriptFileOf(main));
   final jsonPath = normalize(join(currentDirectory, 'input.json'));
   final jsonRawData = await File(jsonPath).readAsString();
@@ -18,7 +18,7 @@ Future<void> main() async {
 
     // Write to file for debugging purposes.
     await File(join(currentDirectory, 'output.dart'))
-        .writeAsString(dartCode.code);
+        .writeAsString('//@dart=2.12\n\n${dartCode.code}');
 
     expect(dartCode.warnings.isEmpty, equals(true));
     expect(dartCode.code.contains('final Map<String, dynamic> data ='),

@@ -205,7 +205,9 @@ class ModelGenerator {
 
     _postProcess();
 
-    return DartCode(allClasses.map((c) => c.toString()).join('\n'), warnings);
+    return DartCode(
+        '//@dart=2.12\n\n' + allClasses.map((c) => c.toString()).join('\n'),
+        warnings);
   }
 
   /// generateDartClasses will generate all classes and append one after another

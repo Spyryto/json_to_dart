@@ -16,7 +16,7 @@ void main() async {
 
   // Write to file for debugging purposes.
   await File(join(currentDirectory, 'output.dart'))
-      .writeAsString(dartCode.code);
+      .writeAsString('//@dart=2.12\n\n${dartCode.code}');
 
   test('generated code should not give warnings', () {
     showWarnings(dartCode.warnings);

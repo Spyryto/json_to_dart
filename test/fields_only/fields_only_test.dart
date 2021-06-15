@@ -11,12 +11,13 @@ void main() async {
   final jsonPath = normalize(join(currentDirectory, 'input.json'));
   final jsonRawData = await File(jsonPath).readAsString();
 
-  final generator = ModelGenerator('Response', fieldsOnly: true);
+  final generator =
+      ModelGenerator('Response', fieldsOnly: true, makePropertiesFinal: false);
   final dartCode = generator.generateDartClasses(jsonRawData);
 
   // Write to file for debugging purposes.
-  await File(join(currentDirectory, 'output.dart'))
-      .writeAsString(dartCode.code);
+  await File(join(currentDirectory, 'output.dart.md'))
+      .writeAsString('```dart\n${dartCode.code}\n```');
 
   test('generated code should not give warnings', () {
     showWarnings(dartCode.warnings);

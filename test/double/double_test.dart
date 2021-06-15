@@ -41,17 +41,16 @@ void main() {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
       final modelGenerator = ModelGenerator('DoubleTest');
-      final dartSourceCode = modelGenerator.generateDartClasses(jsonRawData);
+      final dartCode = modelGenerator.generateDartClasses(jsonRawData);
 
       // Write to file for debugging purposes.
       await File(join(currentDirectory, 'output.dart'))
-          .writeAsString(dartSourceCode.code);
+          .writeAsString('//@dart=2.12\n\n${dartCode.code}');
 
       final wrongDoubleRegExp = RegExp(r'^.*double int[0-9]+;$');
       final wrongIntRegExp = RegExp(r'^.*int double[0-9]+;$');
-      final wrongDoubleMatch =
-          wrongDoubleRegExp.firstMatch(dartSourceCode.code);
-      final wrongIntMatch = wrongIntRegExp.firstMatch(dartSourceCode.code);
+      final wrongDoubleMatch = wrongDoubleRegExp.firstMatch(dartCode.code);
+      final wrongIntMatch = wrongIntRegExp.firstMatch(dartCode.code);
       expect(wrongDoubleMatch, isNull, reason: 'Wrong double found');
       expect(wrongIntMatch, isNull, reason: 'Wrong int found');
     });

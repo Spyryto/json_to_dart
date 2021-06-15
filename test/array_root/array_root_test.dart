@@ -18,7 +18,7 @@ void main() {
 
       // Write to file for debugging purposes.
       await File(join(currentDirectory, 'output.dart'))
-          .writeAsString(dartCode.code);
+          .writeAsString('//@dart=2.12\n\n${dartCode.code}');
 
       expect(dartCode.warnings.length, equals(0));
       expect(dartCode.code.contains('class GlossDiv'), equals(true));

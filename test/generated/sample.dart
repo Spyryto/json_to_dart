@@ -8,6 +8,10 @@
 // Phones (PersonalInfo)
 // ==========
 
+//@dart=2.12
+
+//@dart=2.12
+
 class Sample {
   final String username;
   final int favouriteInteger;
@@ -40,9 +44,7 @@ class Sample {
       tags: json['tags'].cast<String>(),
       randomIntegers: json['randomIntegers'].cast<int>(),
       randomDoubles: json['randomDoubles'].cast<double>(),
-      personalInfo: json['personalInfo'] != null
-          ? PersonalInfo.fromJson(json['personalInfo'])
-          : null,
+      personalInfo: PersonalInfo.fromJson(json['personalInfo']),
     );
   }
 
@@ -56,9 +58,7 @@ class Sample {
     __data__['tags'] = tags;
     __data__['randomIntegers'] = randomIntegers;
     __data__['randomDoubles'] = randomDoubles;
-    if (personalInfo != null) {
-      __data__['personalInfo'] = personalInfo.toJson();
-    }
+    __data__['personalInfo'] = personalInfo.toJson();
     return __data__;
   }
 }
@@ -80,9 +80,7 @@ class PersonalInfo {
       firstName: json['firstName'],
       lastName: json['lastName'],
       location: json['location'],
-      phones: json['phones'] != null
-          ? List<Phones>.from(json['phones'].map((x) => Phones.fromJson(x)))
-          : null,
+      phones: List<Phones>.from(json['phones'].map((x) => Phones.fromJson(x))),
     );
   }
 
@@ -91,9 +89,7 @@ class PersonalInfo {
     __data__['firstName'] = firstName;
     __data__['lastName'] = lastName;
     __data__['location'] = location;
-    if (phones != null) {
-      __data__['phones'] = phones.map((v) => v.toJson()).toList();
-    }
+    __data__['phones'] = phones.map((v) => v.toJson()).toList();
     return __data__;
   }
 }
