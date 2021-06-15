@@ -120,27 +120,27 @@ class TypeDefinition {
     }
     if (isPrimitive) {
       if (name == 'List') {
-        return "$fieldKey = json['$key'].cast<$subtype>();";
+        return "$fieldKey = json['$key'].cast<$subtype>()";
       }
-      return "$fieldKey = json['$key'];";
+      return "$fieldKey = json['$key']";
     } else if (name == 'List' && subtype == 'DateTime') {
-      return "$fieldKey = json['$key'].map((v) => DateTime.tryParse(v));";
+      return "$fieldKey = json['$key'].map((v) => DateTime.tryParse(v))";
     } else if (name == 'DateTime') {
-      return "$fieldKey = DateTime.tryParse(json['$key']);";
+      return "$fieldKey = DateTime.tryParse(json['$key'])";
     } else if (name == 'List') {
       // list of class
       if (collectionLiteral) {
-        return "if (json['$key'] != null) {\n\t\t\t$fieldKey = <$subtype>[];\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add($subtype.fromJson(v)); });\n\t\t}";
+        return "$fieldKey = json['$key'] != null ?\n\t\t\t<$subtype>[] :\n\t\t\tjson['$key'].map((v) => $subtype.fromJson(v))";
       } else {
         if (newKeyword) {
-          return "if (json['$key'] != null) {\n\t\t\t$fieldKey = new List<$subtype>();\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add(new $subtype.fromJson(v)); });\n\t\t}";
+          return "/* if (json['$key'] != null) {\n\t\t\t$fieldKey = new List<$subtype>();\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add(new $subtype.fromJson(v)); }),\n\t\t} */";
         } else {
-          return "if (json['$key'] != null) {\n\t\t\t$fieldKey = List<$subtype>();\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add($subtype.fromJson(v)); });\n\t\t}";
+          return "/* if (json['$key'] != null) {\n\t\t\t$fieldKey = List<$subtype>();\n\t\t\tjson['$key'].forEach((v) { $fieldKey.add($subtype.fromJson(v)); }),\n\t\t} */";
         }
       }
     } else {
       // class
-      return "$fieldKey = json['$key'] != null ? ${_buildParseClass(jsonKey, newKeyword)} : null;";
+      return "$fieldKey = ${_buildParseClass(jsonKey, newKeyword)}";
     }
   }
 
@@ -187,14 +187,10 @@ class TypeDefinition {
       return "__data__['$key'] = $thisKey;";
     } else if (name == 'List') {
       // class list
-      return """if ($thisKey != null) {
-      __data__['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();
-    }""";
+      return """__data__['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v')}).toList();""";
     } else {
       // class
-      return """if ($thisKey != null) {
-      __data__['$key'] = ${_buildToJsonClass(thisKey)};
-    }""";
+      return """__data__['$key'] = ${_buildToJsonClass(thisKey)};""";
     }
   }
 }
@@ -245,7 +241,7 @@ class ClassDefinition {
     this.newKeyword = false,
     this.thisKeyword = false,
     this.collectionLiterals = true,
-    this.makePropertiesRequired = false,
+    this.makePropertiesRequired = true,
     this.makePropertiesFinal = false,
     this.typesOnly = false,
     this.fieldsOnly = false,
@@ -321,12 +317,12 @@ class ClassDefinition {
     code.write('\t$name({');
     var i = 0;
     var len = fields.keys.length - 1;
-    fields.entries.map((field) {
+    fields.entries.forEach((field) {
       final type = field.value;
       final publicFieldName =
           fixFieldName(field.key, typeDef: type, privateField: false);
       if (makePropertiesRequired) {
-        code.write('@required ');
+        code.write('required ');
       }
       _addTypeDef(type, code);
       code.write(' $publicFieldName');
@@ -335,16 +331,24 @@ class ClassDefinition {
       }
       i++;
     });
-    code.write('}) {\n');
-    fields.entries.map((field) {
-      final type = field.value;
-      final publicFieldName =
-          fixFieldName(field.key, typeDef: type, privateField: false);
-      final privateFieldName =
-          fixFieldName(field.key, typeDef: type, privateField: true);
-      code.write('this.$privateFieldName = $publicFieldName;\n');
-    });
-    code.write('}');
+    code.write('})');
+    if (fields.isEmpty) {
+      code.write(';');
+    } else {
+      code.write(' :\n');
+      var length = fields.length;
+      var index = 0;
+      fields.entries.forEach((field) {
+        index++;
+        final type = field.value;
+        final publicFieldName =
+            fixFieldName(field.key, typeDef: type, privateField: false);
+        final privateFieldName =
+            fixFieldName(field.key, typeDef: type, privateField: true);
+        code.write('\t\t$privateFieldName = $publicFieldName');
+        code.write(index == length ? ';\n' : ',\n');
+      });
+    }
     return code.toString();
   }
 
@@ -353,12 +357,12 @@ class ClassDefinition {
     code.write('\t$name({');
     var i = 0;
     var len = fields.keys.length - 1;
-    fields.entries.map((field) {
+    fields.entries.forEach((field) {
       final type = field.value;
       final fieldName =
           fixFieldName(field.key, typeDef: type, privateField: privateFields);
       if (makePropertiesRequired) {
-        code.write('@required this.$fieldName');
+        code.write('required this.$fieldName');
       } else {
         code.write('this.$fieldName');
       }
@@ -387,12 +391,15 @@ class ClassDefinition {
       return code.toString();
     } else {
       code.write('\t$name');
-      code.write('.fromJson(Map<String, dynamic> json) {\n');
+      code.write('.fromJson(Map<String, dynamic> json) :\n');
+      var length = fields.length;
+      var index = 0;
       fields.forEach((key, field) {
+        index++;
         code.write(
-            '\t\t${field.jsonParseExpression(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+            '\t\t${field.jsonParseExpression(key, privateFields, newKeyword, thisKeyword, collectionLiterals)}');
+        code.write(index == length ? ';\n' : ',\n');
       });
-      code.write('\t}');
       return code.toString();
     }
   }

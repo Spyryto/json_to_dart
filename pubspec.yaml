@@ -13,10 +13,14 @@ dependencies:
   json_ast:
     git:
       url: https://github.com/Spyryto/json_ast
-      version: ^1.0.5
+      version: ^1.0.6
 
 dev_dependencies:
   path: ^1.8.0
   pedantic: ^1.11.0
   stack_trace: ^1.10.0
   test: ^1.17.5
+
+dependency_overrides:
+ json_ast:
+   path: D:\projects\dart-repos\json_ast

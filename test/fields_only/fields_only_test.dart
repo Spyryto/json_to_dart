@@ -29,9 +29,9 @@ void main() async {
   test('generated code should be a data structure', () {
     expect(dartCode.code, contains('''
 class Dati {
-  String codiceAzienda;
-  String codiceAnagrafico;
-  String codiceServizio;
+\tString codiceAzienda;
+\tString codiceAnagrafico;
+\tString codiceServizio;
 }
 '''));
   });

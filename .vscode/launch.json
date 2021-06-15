@@ -4,6 +4,12 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+{
+    "name": "fix_duplicate_classes_test",
+    "program": "${workspaceFolder}/test/fix_duplicate_classes/fix_duplicate_classes_test.dart",
+    "request": "launch",
+    "type": "dart"
+},
         {
             "name": "generate_bug_10",
             "program": "${workspaceFolder}/example/generate_model_example.dart",

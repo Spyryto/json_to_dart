@@ -40,7 +40,7 @@ class ModelGenerator {
     bool newKeyword = false,
     bool thisKeyword = false,
     bool collectionLiterals = true,
-    bool makePropertiesRequired = false,
+    bool makePropertiesRequired = true,
     bool makePropertiesFinal = false,
     bool typesOnly = false,
     bool fieldsOnly = false,
@@ -69,7 +69,7 @@ class ModelGenerator {
       // if first element is an array, start in the first element.
       final firstNode = navigateNode(astNode, '0');
       _generateClassDefinition(
-          className, jsonRawDynamicData[0], path, firstNode);
+          className, jsonRawDynamicData[0], path, firstNode!);
     } else {
       final jsonData = (jsonRawDynamicData as Map).map(
           (key, value) => MapEntry<String, dynamic>(key.toString(), value));
@@ -164,11 +164,15 @@ class ModelGenerator {
             toAnalyze = jsonRawData[dependency.name][0];
           }
           final node = navigateNode(astNode, dependency.name);
-          warns.addAll(_generateClassDefinition(dependency.className, toAnalyze,
-              '$path/${dependency.name}', node));
+          if (node != null) {
+            warns.addAll(_generateClassDefinition(dependency.className,
+                toAnalyze, '$path/${dependency.name}', node));
+          } else {
+            warns.add(Warning('node not found', '$path/${dependency.name}'));
+          }
         }
       } else {
-        final node = navigateNode(astNode, dependency.name);
+        final node = navigateNode(astNode, dependency.name)!;
         warns.addAll(_generateClassDefinition(dependency.className,
             jsonRawData[dependency.name], '$path/${dependency.name}', node));
       }
@@ -190,10 +194,10 @@ class ModelGenerator {
       final fieldsKeys = c.fields.keys;
       fieldsKeys.forEach((f) {
         final typeForField = c.fields[f];
-        if (sameClassMapping.containsKey(typeForField.name)) {
-          c.fields[f].name = sameClassMapping[typeForField.name];
-        } else if (sameClassMapping.containsKey(typeForField.subtype)) {
-          c.fields[f].subtype = sameClassMapping[typeForField.subtype];
+        if (sameClassMapping.containsKey(typeForField?.name)) {
+          c.fields[f]!.name = sameClassMapping[typeForField?.name]!;
+        } else if (sameClassMapping.containsKey(typeForField?.subtype)) {
+          c.fields[f]!.subtype = sameClassMapping[typeForField?.subtype];
         }
       });
     });
@@ -210,7 +214,9 @@ class ModelGenerator {
     final unsafeDartCode = generateUnsafeDart(rawJson);
     final formatter = DartFormatter();
     return DartCode(
-        formatter.format(unsafeDartCode.code), unsafeDartCode.warnings);
+        // formatter.format(unsafeDartCode.code), unsafeDartCode.warnings);
+        unsafeDartCode.code,
+        unsafeDartCode.warnings);
   }
 
   void _postProcess() {
@@ -223,7 +229,7 @@ class ModelGenerator {
           parent: class_.parentClass,
         ));
     classInfo.forEach((info) {
-      print('${info.name}: ${info.count} (${info.parent?.name ?? ""})');
+      print('// ${info.name}: ${info.count} (${info.parent?.name ?? ""})');
     });
 
     // Apply auto renamings to avoid duplicates
@@ -232,9 +238,9 @@ class ModelGenerator {
         MapEntry(info.self, "${info.parent?.name ?? ''}${info.name}"));
 
     if (autoRenamings.isNotEmpty) {
-      print('-' * 10 + ' auto' + '-' * 10);
+      print('// ' + '-' * 10 + ' auto' + '-' * 10);
       autoRenamings.forEach((entry) {
-        print('${entry.key.name} ---> ${entry.value}');
+        print('// ${entry.key.name} ---> ${entry.value}');
       });
     }
 
@@ -245,7 +251,7 @@ class ModelGenerator {
         .map((info) => MapEntry(info.self, userRenameRules[info.name]!));
 
     if (userRenamings.isNotEmpty) {
-      print('-' * 10 + ' user' + '-' * 10);
+      print('-' * 10 + ' user ' + '-' * 10);
       userRenamings.forEach((entry) {
         print('${entry.key.name} ---> ${entry.value}');
       });
@@ -267,13 +273,13 @@ class ModelGenerator {
 
     // See what comes out
 
-    print('');
-    print('-' * 10 + ' output ' + '-' * 10);
+    print('//');
+    print('// ' + '-' * 10 + ' output ' + '-' * 10);
     classInfo.forEach((info) {
       var name = info.self.name;
-      print('${name} (${info.parent?.name ?? ""})');
+      print('// ${name} (${info.parent?.name ?? ""})');
     });
-    print('=' * 10 + '\n');
+    print('// ' + '=' * 10 + '\n');
   }
 
   void _renameClass(ClassDefinition class_, String newName) {
@@ -285,7 +291,7 @@ class ModelGenerator {
     var dependencyClasses = allClasses.where((c) =>
         c.dependencies
             .any((dependency) => dependency.typeDef.name == className) &&
-        c.name == class_.parentClass.name);
+        c.name == class_.parentClass?.name);
 
     dependencyClasses.forEach((dependency) {
       // Searches for fields to rename.
