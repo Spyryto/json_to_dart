@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'package:json_to_dart/utils.dart';
 
 Future<void> main() async {
-  final currentDirectory = dirname(thisScriptPath());
+  final currentDirectory = dirname(scriptFileOf(main));
   final jsonPath = normalize(join(currentDirectory, 'input.json'));
   final jsonRawData = await File(jsonPath).readAsString();
 

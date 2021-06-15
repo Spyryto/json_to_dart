@@ -7,7 +7,7 @@ import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator-with-warnings', () {
-    final currentDirectory = dirname(thisScriptPath());
+    final currentDirectory = dirname(scriptFileOf(main));
     test('should generate proper warnings', () async {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();

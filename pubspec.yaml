@@ -1,5 +1,5 @@
 name: json_to_dart
-version: 3.0.5
+version: 3.0.6
 author: Daniele Spyryto Zecchin <danielezecchin@gmail.com>
 description: A library that generates Dart classes (parse and generator included) from a json string.
 publish_to: none
