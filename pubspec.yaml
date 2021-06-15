@@ -5,7 +5,7 @@ description: A library that generates Dart classes (parse and generator included
 publish_to: none
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
   convert: ^3.0.0
