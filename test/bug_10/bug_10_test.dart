@@ -8,6 +8,8 @@ import '../generated/bug_ten.dart';
 
 import 'package:json_to_dart/utils.dart';
 
+typedef Json = Map<String, dynamic>;
+
 void main() {
   group('model-generator', () {
     final currentDirectory = dirname(thisScriptPath());
@@ -29,7 +31,7 @@ void main() {
     test('Generated class should correctly parse JSON for bug 10', () async {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      Json sampleMap = json.decode(jsonRawData);
       final bugTen = BugTen.fromJson(sampleMap);
       expect(bugTen, isNot(isNull));
       expect(bugTen.glossary, isNot(isNull));

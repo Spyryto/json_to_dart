@@ -1,8 +1,11 @@
 import 'dart:convert' as convert;
 import 'dart:math';
+
 import 'package:json_ast/json_ast.dart'
     show Node, ObjectNode, ArrayNode, LiteralNode;
 import 'package:json_to_dart/syntax.dart';
+
+import 'list_extensions.dart';
 
 const Map<String, bool> PRIMITIVE_TYPES = {
   'int': true,
@@ -40,6 +43,8 @@ MergeableListType mergeableListType(List<dynamic> list) {
       inferredType = ListType.String;
     } else if (e is Map) {
       inferredType = ListType.Object;
+    } else {
+      inferredType = ListType.Null;
     }
     if (t != ListType.Null && t != inferredType) {
       isAmbiguous = true;
@@ -52,7 +57,7 @@ MergeableListType mergeableListType(List<dynamic> list) {
 
 String camelCase(String text) {
   String capitalize(Match m) =>
-      m[0].substring(0, 1).toUpperCase() + m[0].substring(1);
+      m[0]!.substring(0, 1).toUpperCase() + m[0]!.substring(1);
   String skip(String s) => '';
   return text.splitMapJoin(RegExp(r'[a-zA-Z0-9]+'),
       onMatch: capitalize, onNonMatch: skip);
@@ -82,7 +87,7 @@ WithWarning<Map> mergeObj(Map obj, Map other, String path) {
         if (t == 'int' && otherType == 'double') {
           // if double was found instead of int, assign the double
           clone[k] = v;
-        } else if (clone[k].runtimeType != 'double' && v.runtimeType != 'int') {
+        } else if (clone[k].runtimeType is! double && v.runtimeType is! int) {
           // if types are not equal, then
           warnings.add(newAmbiguousType('$path/$k'));
         }
@@ -186,7 +191,7 @@ bool isPrimitiveType(String typeName) {
 }
 
 String fixFieldName(String name,
-    {TypeDefinition typeDef, bool privateField = false}) {
+    {required TypeDefinition typeDef, bool privateField = false}) {
   // No prefixes.
   var fixedName = camelCaseFirstLower(name);
   if (privateField) {
@@ -226,23 +231,17 @@ String getTypeName(dynamic obj) {
   }
 }
 
-Node navigateNode(Node astNode, String path) {
-  Node node;
+Node? navigateNode(Node astNode, String path) {
+  Node? node;
   if (astNode is ObjectNode) {
     final ObjectNode objectNode = astNode;
-    final propertyNode = objectNode.children.firstWhere((final prop) {
-      return prop.key.value == path;
-    }, orElse: () {
-      return null;
-    });
-    if (propertyNode != null) {
-      node = propertyNode.value;
-    }
-  }
-  if (astNode is ArrayNode) {
+    final propertyNode = objectNode.children
+        .firstElementWhere((final property) => property.key.value == path);
+    node = propertyNode?.value;
+  } else if (astNode is ArrayNode) {
     final ArrayNode arrayNode = astNode;
     final index = int.tryParse(path);
-    if (index != null && arrayNode.children.length > index) {
+    if (index is int && index < arrayNode.children.length) {
       node = arrayNode.children[index];
     }
   }
@@ -251,7 +250,7 @@ Node navigateNode(Node astNode, String path) {
 
 final _pattern = RegExp(r'([0-9]+)\.{0,1}([0-9]*)e(([-0-9]+))');
 
-bool isASTLiteralDouble(Node astNode) {
+bool isASTLiteralDouble(Node? astNode) {
   if (astNode != null && astNode is LiteralNode) {
     final LiteralNode literalNode = astNode;
     final containsPoint = literalNode.raw.contains('.');
@@ -261,9 +260,9 @@ bool isASTLiteralDouble(Node astNode) {
       if (containsExponent) {
         final matches = _pattern.firstMatch(literalNode.raw);
         if (matches != null) {
-          final integer = matches[1];
-          final comma = matches[2];
-          final exponent = matches[3];
+          final integer = matches[1] ?? '';
+          final comma = matches[2] ?? '';
+          final exponent = matches[3] ?? '';
           isDouble = _isDoubleWithExponential(integer, comma, exponent);
         }
       }
@@ -275,7 +274,7 @@ bool isASTLiteralDouble(Node astNode) {
 
 bool _isDoubleWithExponential(String integer, String comma, String exponent) {
   final integerNumber = int.tryParse(integer) ?? 0;
-  final exponentNumber = int.tryParse(exponent) ?? 0;
+  final exponentNumber = int.tryParse(exponent);
   final commaNumber = int.tryParse(comma) ?? 0;
   if (exponentNumber != null) {
     if (exponentNumber == 0) {

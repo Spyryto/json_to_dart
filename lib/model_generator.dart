@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'package:meta/meta.dart';
-
 import 'package:dart_style/dart_style.dart';
 import 'package:json_ast/json_ast.dart' show parse, Settings, Node;
 import 'package:json_to_dart/helpers.dart';
 import 'package:json_to_dart/syntax.dart';
+
+import 'list_extensions.dart';
 
 class DartCode extends WithWarning<String> {
   DartCode(String result, List<Warning> warnings) : super(result, warnings);
@@ -46,7 +45,7 @@ class ModelGenerator {
     bool typesOnly = false,
     bool fieldsOnly = false,
     dynamic hints,
-    Map<String, String> userRenameRules,
+    Map<String, String>? userRenameRules,
   })  : _privateFields = privateFields,
         _newKeyword = newKeyword,
         _thisKeyword = thisKeyword,
@@ -58,8 +57,8 @@ class ModelGenerator {
         hints = hints ??= <Hint>[],
         userRenameRules = userRenameRules ?? {};
 
-  Hint _hintForPath(String path) {
-    return hints.firstWhere((h) => h.path == path, orElse: () => null);
+  Hint? _hintForPath(String path) {
+    return hints.firstElementWhere((hint) => hint.path == path);
   }
 
   List<Warning> _generateClassDefinition(
@@ -95,12 +94,11 @@ class ModelGenerator {
     return warnings;
   }
 
-  ClassDefinition _parentClass(String className) => allClasses.lastWhere(
-      (class_) =>
+  ClassDefinition? _parentClass(String className) =>
+      allClasses.lastElementWhere((class_) =>
           class_.dependencies.isNotEmpty &&
           class_.dependencies
-              .any((dependency) => dependency.className == className),
-      orElse: () => null);
+              .any((dependency) => dependency.className == className));
 
   void _generateTypeDefinitions(
       Iterable<String> keys,
@@ -135,8 +133,8 @@ class ModelGenerator {
   }
 
   void _mapSimilarClasses(ClassDefinition classDefinition) {
-    final similarClass = allClasses.firstWhere((cd) => cd == classDefinition,
-        orElse: () => null);
+    final similarClass =
+        allClasses.firstElementWhere((cd) => cd == classDefinition);
     if (similarClass != null) {
       final similarClassName = similarClass.name;
       final currentClassName = classDefinition.name;
@@ -150,7 +148,7 @@ class ModelGenerator {
       String path, List<Warning> warnings, Node astNode) {
     final dependencies = classDefinition.dependencies;
     dependencies.forEach((dependency) {
-      List<Warning> warns;
+      List<Warning> warns = [];
       if (dependency.typeDef.name == 'List') {
         // only generate dependency class if the array is not empty
         if (jsonRawData[dependency.name].length > 0) {
@@ -166,17 +164,15 @@ class ModelGenerator {
             toAnalyze = jsonRawData[dependency.name][0];
           }
           final node = navigateNode(astNode, dependency.name);
-          warns = _generateClassDefinition(dependency.className, toAnalyze,
-              '$path/${dependency.name}', node);
+          warns.addAll(_generateClassDefinition(dependency.className, toAnalyze,
+              '$path/${dependency.name}', node));
         }
       } else {
         final node = navigateNode(astNode, dependency.name);
-        warns = _generateClassDefinition(dependency.className,
-            jsonRawData[dependency.name], '$path/${dependency.name}', node);
+        warns.addAll(_generateClassDefinition(dependency.className,
+            jsonRawData[dependency.name], '$path/${dependency.name}', node));
       }
-      if (warns != null) {
-        warnings.addAll(warns);
-      }
+      warnings.addAll(warns);
     });
   }
 
@@ -246,7 +242,7 @@ class ModelGenerator {
 
     var userRenamings = classInfo
         .where((info) => userRenameRules.containsKey(info.name))
-        .map((info) => MapEntry(info.self, userRenameRules[info.name]));
+        .map((info) => MapEntry(info.self, userRenameRules[info.name]!));
 
     if (userRenamings.isNotEmpty) {
       print('-' * 10 + ' user' + '-' * 10);
@@ -318,12 +314,12 @@ class ClassInfo {
   final ClassDefinition self;
   final String name;
   int count;
-  final ClassDefinition parent;
+  final ClassDefinition? parent;
 
   ClassInfo({
-    @required this.self,
-    @required this.name,
-    @required this.count,
-    @required this.parent,
+    required this.self,
+    required this.name,
+    required this.count,
+    this.parent,
   });
 }

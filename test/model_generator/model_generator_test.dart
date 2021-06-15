@@ -6,13 +6,15 @@ import '../generated/sample.dart';
 
 import 'package:json_to_dart/utils.dart';
 
+typedef Json = Map<String, dynamic>;
+
 void main() {
   group('model-generator', () {
     final currentDirectory = dirname(thisScriptPath());
     test('Generated class should correctly parse JSON', () async {
       final jsonPath = normalize(join(currentDirectory, 'input--ok.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      Json sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));
@@ -57,7 +59,7 @@ void main() {
         () async {
       final jsonPath = normalize(join(currentDirectory, 'input--missing.json'));
       final jsonRawData = await File(jsonPath).readAsString();
-      Map sampleMap = json.decode(jsonRawData);
+      Json sampleMap = json.decode(jsonRawData);
       final sample = Sample.fromJson(sampleMap);
       expect(sample, isNot(isNull));
       expect(sample.username, equals('javiercbk'));

@@ -1,6 +1,13 @@
 import 'dart:io';
+import 'dart:mirrors';
 
 import 'syntax.dart';
+
+String scriptFileOf(Function function) {
+  var closureMirror = reflect(function) as ClosureMirror;
+  var libraryMirror = closureMirror.function.owner as LibraryMirror;
+  return libraryMirror.uri.toFilePath(windows: Platform.isWindows);
+}
 
 String thisScriptPath() {
   var uri = Platform.script.toString();
