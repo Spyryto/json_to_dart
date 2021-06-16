@@ -10,7 +10,7 @@ import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('Should identify doubles and ints', () {
-    final currentDirectory = dirname(thisScriptPath());
+    final currentDirectory = dirname(scriptFileOf(main));
 
     test('should parse literals correctly', () {
       expect(isASTLiteralDouble(LiteralNode(1, '1')), isFalse);

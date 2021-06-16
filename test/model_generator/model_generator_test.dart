@@ -9,7 +9,7 @@ import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
-    final currentDirectory = dirname(thisScriptPath());
+    final currentDirectory = dirname(scriptFileOf(main));
     test('Generated class should correctly parse JSON', () async {
       final jsonPath = normalize(join(currentDirectory, 'input--ok.json'));
       final jsonRawData = await File(jsonPath).readAsString();

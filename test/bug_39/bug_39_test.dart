@@ -8,7 +8,7 @@ import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
-    final currentDirectory = dirname(thisScriptPath());
+    final currentDirectory = dirname(scriptFileOf(main));
 
     test('Should generate the classes to parse the JSON', () async {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
@@ -16,18 +16,14 @@ void main() {
       final generator = ModelGenerator('BugThirtyNine');
 
       // FIXME: Add matrix support
-      /*
       final dartCode = generator.generateDartClasses(jsonRawData);
-      */
 
       // Write to file for debugging purposes.
-      /*
       await File(join(currentDirectory, 'output.dart'))
-        .writeAsString(dartCode.code);
+          .writeAsString(dartCode.code);
 
       expect(dartCode.warnings.length, equals(0));
       expect(dartCode.code.contains('class BugForty'), equals(true));
-      */
     }, skip: 'matrix not implemented');
   });
 }

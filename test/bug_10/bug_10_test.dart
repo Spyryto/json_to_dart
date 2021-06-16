@@ -10,7 +10,7 @@ import 'package:json_to_dart/utils.dart';
 
 void main() {
   group('model-generator', () {
-    final currentDirectory = dirname(thisScriptPath());
+    final currentDirectory = dirname(scriptFileOf(main));
 
     test('Should generate the classes to parse the JSON', () async {
       final jsonPath = normalize(join(currentDirectory, 'input.json'));
