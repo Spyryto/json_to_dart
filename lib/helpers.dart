@@ -1,3 +1,4 @@
+//@dart=2.9
 import 'dart:convert' as convert;
 import 'dart:math';
 import 'package:json_ast/json_ast.dart'

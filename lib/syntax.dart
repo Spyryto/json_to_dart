@@ -1,3 +1,4 @@
+//@dart=2.9
 import 'package:json_ast/json_ast.dart' show Node;
 import 'package:json_to_dart/helpers.dart';
 
@@ -344,7 +345,7 @@ class ClassDefinition {
       final publicFieldName =
           fixFieldName(key, typeDef: f, privateField: false);
       if (makePropertiesRequired) {
-        sb.write('@required ');
+        sb.write('required ');
       }
       _addTypeDef(f, sb);
       sb.write(' $publicFieldName');
@@ -376,7 +377,7 @@ class ClassDefinition {
       final fieldName =
           fixFieldName(key, typeDef: f, privateField: privateFields);
       if (makePropertiesRequired) {
-        sb.write('@required this.$fieldName');
+        sb.write('required this.$fieldName');
       } else {
         sb.write('this.$fieldName');
       }
