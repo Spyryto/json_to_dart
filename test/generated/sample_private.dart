@@ -1,33 +1,43 @@
+// Sample: 1 ()
+// PersonalInfo: 1 (Sample)
+// Phones: 1 (PersonalInfo)
+// 
+// ---------- output ----------
+// Sample ()
+// PersonalInfo (Sample)
+// Phones (PersonalInfo)
+// ==========
+
 class Sample {
-  String _username;
-  int _favouriteInteger;
-  double _favouriteDouble;
-  String _url;
-  String _htmlUrl;
-  List<String> _tags;
-  List<int> _randomIntegers;
-  List<double> _randomDoubles;
-  PersonalInfo _personalInfo;
+  final String _username;
+  final int _favouriteInteger;
+  final double _favouriteDouble;
+  final String _url;
+  final String _htmlUrl;
+  final List<String> _tags;
+  final List<int> _randomIntegers;
+  final List<double> _randomDoubles;
+  final PersonalInfo _personalInfo;
 
   Sample(
-      {String username,
-      int favouriteInteger,
-      double favouriteDouble,
-      String url,
-      String htmlUrl,
-      List<String> tags,
-      List<int> randomIntegers,
-      List<double> randomDoubles,
-      PersonalInfo personalInfo}) {
-    _username = username;
-    _favouriteInteger = favouriteInteger;
-    _favouriteDouble = favouriteDouble;
-    _url = url;
-    _htmlUrl = htmlUrl;
-    _tags = tags;
-    _randomIntegers = randomIntegers;
-    _randomDoubles = randomDoubles;
-    _personalInfo = personalInfo;
+      {required String username,
+      required int favouriteInteger,
+      required double favouriteDouble,
+      required String url,
+      required String htmlUrl,
+      required List<String> tags,
+      required List<int> randomIntegers,
+      required List<double> randomDoubles,
+      required PersonalInfo personalInfo}) {
+    this._username = username;
+    this._favouriteInteger = favouriteInteger;
+    this._favouriteDouble = favouriteDouble;
+    this._url = url;
+    this._htmlUrl = htmlUrl;
+    this._tags = tags;
+    this._randomIntegers = randomIntegers;
+    this._randomDoubles = randomDoubles;
+    this._personalInfo = personalInfo;
   }
 
   String get username => _username;
@@ -53,52 +63,54 @@ class Sample {
   PersonalInfo get personalInfo => _personalInfo;
   set personalInfo(PersonalInfo personalInfo) => _personalInfo = personalInfo;
 
-  Sample.fromJson(Map<String, dynamic> json) {
-    _username = json['username'];
-    _favouriteInteger = json['favouriteInteger'];
-    _favouriteDouble = json['favouriteDouble'];
-    _url = json['url'];
-    _htmlUrl = json['html_url'];
-    _tags = json['tags'].cast<String>();
-    _randomIntegers = json['randomIntegers'].cast<int>();
-    _randomDoubles = json['randomDoubles'].cast<double>();
-    _personalInfo = json['personalInfo'] != null
-        ? PersonalInfo.fromJson(json['personalInfo'])
-        : null;
+  factory Sample.fromJson(Map<String, dynamic> json) {
+    return Sample(
+      _username: json['username'],
+      _favouriteInteger: json['favouriteInteger'],
+      _favouriteDouble: json['favouriteDouble'],
+      _url: json['url'],
+      _htmlUrl: json['html_url'],
+      _tags: json['tags'].cast<String>(),
+      _randomIntegers: json['randomIntegers'].cast<int>(),
+      _randomDoubles: json['randomDoubles'].cast<double>(),
+      _personalInfo: json['personalInfo'] != null
+          ? PersonalInfo.fromJson(json['personalInfo'])
+          : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['username'] = _username;
-    data['favouriteInteger'] = _favouriteInteger;
-    data['favouriteDouble'] = _favouriteDouble;
-    data['url'] = _url;
-    data['html_url'] = _htmlUrl;
-    data['tags'] = _tags;
-    data['randomIntegers'] = _randomIntegers;
-    data['randomDoubles'] = _randomDoubles;
+    final __data__ = <String, dynamic>{};
+    __data__['username'] = _username;
+    __data__['favouriteInteger'] = _favouriteInteger;
+    __data__['favouriteDouble'] = _favouriteDouble;
+    __data__['url'] = _url;
+    __data__['html_url'] = _htmlUrl;
+    __data__['tags'] = _tags;
+    __data__['randomIntegers'] = _randomIntegers;
+    __data__['randomDoubles'] = _randomDoubles;
     if (_personalInfo != null) {
-      data['personalInfo'] = _personalInfo.toJson();
+      __data__['personalInfo'] = _personalInfo.toJson();
     }
-    return data;
+    return __data__;
   }
 }
 
 class PersonalInfo {
-  String _firstName;
-  String _lastName;
-  String _location;
-  List<Phones> _phones;
+  final String _firstName;
+  final String _lastName;
+  final String _location;
+  final List<Phones> _phones;
 
   PersonalInfo(
-      {String firstName,
-      String lastName,
-      String location,
-      List<Phones> phones}) {
-    _firstName = firstName;
-    _lastName = lastName;
-    _location = location;
-    _phones = phones;
+      {required String firstName,
+      required String lastName,
+      required String location,
+      required List<Phones> phones}) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._location = location;
+    this._phones = phones;
   }
 
   String get firstName => _firstName;
@@ -110,39 +122,41 @@ class PersonalInfo {
   List<Phones> get phones => _phones;
   set phones(List<Phones> phones) => _phones = phones;
 
-  PersonalInfo.fromJson(Map<String, dynamic> json) {
-    _firstName = json['firstName'];
-    _lastName = json['lastName'];
-    _location = json['location'];
-    if (json['phones'] != null) {
-      _phones = <Phones>[];
-      json['phones'].forEach((v) {
-        _phones.add(Phones.fromJson(v));
-      });
-    }
+  factory PersonalInfo.fromJson(Map<String, dynamic> json) {
+    return PersonalInfo(
+      _firstName: json['firstName'],
+      _lastName: json['lastName'],
+      _location: json['location'],
+      _phones: json['phones'] != null
+          ? List<Phones>.from(json['phones'].map((x) => Phones.fromJson(x)))
+          : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['firstName'] = _firstName;
-    data['lastName'] = _lastName;
-    data['location'] = _location;
+    final __data__ = <String, dynamic>{};
+    __data__['firstName'] = _firstName;
+    __data__['lastName'] = _lastName;
+    __data__['location'] = _location;
     if (_phones != null) {
-      data['phones'] = _phones.map((v) => v.toJson()).toList();
+      __data__['phones'] = _phones.map((v) => v.toJson()).toList();
     }
-    return data;
+    return __data__;
   }
 }
 
 class Phones {
-  String _type;
-  String _number;
-  bool _shouldCall;
+  final String _type;
+  final String _number;
+  final bool _shouldCall;
 
-  Phones({String type, String number, bool shouldCall}) {
-    _type = type;
-    _number = number;
-    _shouldCall = shouldCall;
+  Phones(
+      {required String type,
+      required String number,
+      required bool shouldCall}) {
+    this._type = type;
+    this._number = number;
+    this._shouldCall = shouldCall;
   }
 
   String get type => _type;
@@ -152,17 +166,20 @@ class Phones {
   bool get shouldCall => _shouldCall;
   set shouldCall(bool shouldCall) => _shouldCall = shouldCall;
 
-  Phones.fromJson(Map<String, dynamic> json) {
-    _type = json['type'];
-    _number = json['number'];
-    _shouldCall = json['shouldCall'];
+  factory Phones.fromJson(Map<String, dynamic> json) {
+    return Phones(
+      _type: json['type'],
+      _number: json['number'],
+      _shouldCall: json['shouldCall'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = _type;
-    data['number'] = _number;
-    data['shouldCall'] = _shouldCall;
-    return data;
+    final __data__ = <String, dynamic>{};
+    __data__['type'] = _type;
+    __data__['number'] = _number;
+    __data__['shouldCall'] = _shouldCall;
+    return __data__;
   }
 }
+

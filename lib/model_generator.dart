@@ -42,8 +42,8 @@ class ModelGenerator {
     bool newKeyword = false,
     bool thisKeyword = false,
     bool collectionLiterals = true,
-    bool makePropertiesRequired = false,
-    bool makePropertiesFinal = false,
+    bool makePropertiesRequired = true,
+    bool makePropertiesFinal = true,
     bool typesOnly = false,
     bool fieldsOnly = false,
     dynamic hints,
@@ -228,7 +228,7 @@ class ModelGenerator {
           parent: class_.parentClass,
         ));
     classInfo.forEach((info) {
-      print('${info.name}: ${info.count} (${info.parent?.name ?? ""})');
+      print('// ' + '${info.name}: ${info.count} (${info.parent?.name ?? ""})');
     });
 
     // Apply auto renamings to avoid duplicates
@@ -237,9 +237,9 @@ class ModelGenerator {
         MapEntry(info.self, "${info.parent?.name ?? ''}${info.name}"));
 
     if (autoRenamings.isNotEmpty) {
-      print('-' * 10 + ' auto' + '-' * 10);
+      print('// ' + '-' * 10 + ' auto' + '-' * 10);
       autoRenamings.forEach((entry) {
-        print('${entry.key.name} ---> ${entry.value}');
+        print('// ' + '${entry.key.name} ---> ${entry.value}');
       });
     }
 
@@ -250,9 +250,9 @@ class ModelGenerator {
         .map((info) => MapEntry(info.self, userRenameRules[info.name]));
 
     if (userRenamings.isNotEmpty) {
-      print('-' * 10 + ' user' + '-' * 10);
+      print('// ' + '-' * 10 + ' user' + '-' * 10);
       userRenamings.forEach((entry) {
-        print('${entry.key.name} ---> ${entry.value}');
+        print('// ' + '${entry.key.name} ---> ${entry.value}');
       });
     }
 
@@ -272,13 +272,13 @@ class ModelGenerator {
 
     // See what comes out
 
-    print('');
-    print('-' * 10 + ' output ' + '-' * 10);
+    print('// ' + '');
+    print('// ' + '-' * 10 + ' output ' + '-' * 10);
     classInfo.forEach((info) {
       var name = info.self.name;
-      print('${name} (${info.parent?.name ?? ""})');
+      print('// ' + '${name} (${info.parent?.name ?? ""})');
     });
-    print('=' * 10 + '\n');
+    print('// ' + '=' * 10 + '\n');
   }
 
   void _renameClass(ClassDefinition class_, String newName) {
