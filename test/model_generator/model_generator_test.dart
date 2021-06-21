@@ -1,13 +1,17 @@
 //@dart=2.9
 import 'dart:io';
 import 'dart:convert';
-import 'package:path/path.dart' show dirname, join, normalize;
-import 'package:test/test.dart';
-import '../generated/sample.dart';
 
 import 'package:json_to_dart/utils.dart';
+import 'package:path/path.dart' show dirname, join, normalize;
+import 'package:test/test.dart';
 
-void main() {
+import 'generate_model_example.dart' as generator;
+import '../generated/sample.dart';
+
+void main() async {
+  await generator.main();
+
   group('model-generator', () {
     final currentDirectory = dirname(scriptFileOf(main));
     test('Generated class should correctly parse JSON', () async {

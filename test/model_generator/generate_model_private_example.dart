@@ -7,9 +7,11 @@ import 'package:json_to_dart/utils.dart';
 
 void main() async {
   final classGenerator = ModelGenerator('Sample', privateFields: true);
-  final currentDirectory = dirname(thisScriptPath());
+  final currentDirectory = dirname(scriptFileOf(main));
   final filePath = normalize(join(currentDirectory, 'sample.json'));
   final jsonRawData = await File(filePath).readAsString();
   DartCode dartCode = classGenerator.generateDartClasses(jsonRawData);
-  print(dartCode.code);
+  final outputFile = normalize(
+      join(dirname(currentDirectory), 'generated/', 'sample_private.dart'));
+  await File(outputFile).writeAsString(dartCode.code);
 }

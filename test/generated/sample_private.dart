@@ -1,13 +1,3 @@
-// Sample: 1 ()
-// PersonalInfo: 1 (Sample)
-// Phones: 1 (PersonalInfo)
-// 
-// ---------- output ----------
-// Sample ()
-// PersonalInfo (Sample)
-// Phones (PersonalInfo)
-// ==========
-
 //@dart=2.12
 
 class Sample {
@@ -151,4 +141,3 @@ class Phones {
     return __data__;
   }
 }
-

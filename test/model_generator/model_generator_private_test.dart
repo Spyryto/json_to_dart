@@ -1,13 +1,19 @@
 //@dart=2.9
 import 'dart:io';
 import 'dart:convert';
-import 'package:path/path.dart' show dirname, join, normalize;
-import 'package:test/test.dart';
-import '../generated/sample_private.dart';
 
 import 'package:json_to_dart/utils.dart';
+import 'package:path/path.dart' show dirname, join, normalize;
+import 'package:test/test.dart';
 
-void main() {
+import 'generate_model_private_example.dart' as generator;
+import '../generated/sample_private.dart';
+
+void main() async {
+  print('generating file');
+  await generator.main();
+  print('generated file');
+
   group('model-generator', () {
     final currentDirectory = dirname(scriptFileOf(main));
     test('Generated class with private fields should correctly parse JSON',
