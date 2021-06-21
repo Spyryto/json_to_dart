@@ -292,8 +292,7 @@ class ClassDefinition {
   }
 
   void _addTypeDef(TypeDefinition typeDef, StringBuffer sb) {
-    var name =
-        typeDef.name == 'Null' ? 'String /* null supplied */' : typeDef.name;
+    var name = typeDef.name == 'Null' ? 'String?' : typeDef.name;
     sb.write('$name');
     if (typeDef.subtype != null) {
       sb.write('<${typeDef.subtype}>');

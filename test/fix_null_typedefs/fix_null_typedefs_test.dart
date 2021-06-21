@@ -27,6 +27,6 @@ void main() async {
   });
 
   test('generated code defaults to String typedefs', () async {
-    expect(dartCode.code.contains(' String /* null supplied */'), equals(true));
+    expect(dartCode.code.contains(' String? '), equals(true));
   });
 }

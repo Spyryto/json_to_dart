@@ -8,7 +8,7 @@ This library is designed to generate Flutter friendly model classes following th
 
 ## Caveats
 
-🗹	 `Null` typedefs default to `String` now. A comment is added to warn the user: ```/* null supplied */```. This makes the generated code at least usable.
+🗹	 `Null` typedefs default to `String?` now. This makes the generated code at least usable.
 
 🗹 Equal structures are detected. Equal classes are prefixed with name of parent class.
 
