@@ -18,7 +18,7 @@ void main() async {
 
     // Write to file for debugging purposes.
     await File(join(currentDirectory, 'output.dart'))
-        .writeAsString('//@dart=2.12\n\n${dartCode.code}');
+        .writeAsString(dartCode.code);
 
     expect(dartCode.warnings.isEmpty, equals(true));
     expect(dartCode.code.contains('final Map<String, dynamic> data ='),

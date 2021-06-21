@@ -17,7 +17,7 @@ void main() async {
   await File(join(currentDirectory, 'output.dart'))
       .writeAsString(dartCode.code);
   await File(join(dirname(currentDirectory), 'generated', 'bug_ten.dart'))
-      .writeAsString('//@dart=2.12\n\n${dartCode.code}');
+      .writeAsString(dartCode.code);
 
   group('model-generator', () {
     test('Should generate the classes to parse the JSON', () async {

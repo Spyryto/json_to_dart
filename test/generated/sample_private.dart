@@ -10,8 +10,6 @@
 
 //@dart=2.12
 
-//@dart=2.12
-
 class Sample {
   final String _username;
   final int _favouriteInteger;

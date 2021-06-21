@@ -1,7 +1,5 @@
 //@dart=2.12
 
-//@dart=2.12
-
 class BugTen {
   final Glossary glossary;
 

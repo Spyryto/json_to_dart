@@ -1,11 +1,12 @@
 //@dart=2.9
-import 'dart:convert';
 import 'package:meta/meta.dart';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:json_ast/json_ast.dart' show parse, Settings, Node;
 import 'package:json_to_dart/helpers.dart';
 import 'package:json_to_dart/syntax.dart';
+
+const nullSafeVersionTag = '//@dart=2.12';
 
 class DartCode extends WithWarning<String> {
   DartCode(String result, List<Warning> warnings) : super(result, warnings);
@@ -206,7 +207,9 @@ class ModelGenerator {
     _postProcess();
 
     return DartCode(
-        '//@dart=2.12\n\n' + allClasses.map((c) => c.toString()).join('\n'),
+        nullSafeVersionTag +
+            '\n\n' +
+            allClasses.map((c) => c.toString()).join('\n'),
         warnings);
   }
 

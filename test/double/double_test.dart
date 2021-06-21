@@ -45,7 +45,7 @@ void main() {
 
       // Write to file for debugging purposes.
       await File(join(currentDirectory, 'output.dart'))
-          .writeAsString('//@dart=2.12\n\n${dartCode.code}');
+          .writeAsString(dartCode.code);
 
       final wrongDoubleRegExp = RegExp(r'^.*double int[0-9]+;$');
       final wrongIntRegExp = RegExp(r'^.*int double[0-9]+;$');
