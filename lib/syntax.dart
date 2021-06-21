@@ -326,10 +326,7 @@ class ClassDefinition {
       final sb = StringBuffer();
       sb.write('\t');
       _addTypeDef(f, sb);
-      sb.write(
-          ' get $publicFieldName => $privateFieldName;\n\tset $publicFieldName(');
-      _addTypeDef(f, sb);
-      sb.write(' $publicFieldName) => $privateFieldName = $publicFieldName;');
+      sb.write(' get $publicFieldName => $privateFieldName;');
       return sb.toString();
     }).join('\n');
   }
@@ -353,16 +350,19 @@ class ClassDefinition {
       }
       i++;
     });
-    sb.write('}) {\n');
+    sb.write('}) :\n');
+    var index = 0;
+    var length = fields.length;
     fields.keys.forEach((key) {
+      index++;
       final f = fields[key];
       final publicFieldName =
           fixFieldName(key, typeDef: f, privateField: false);
       final privateFieldName =
           fixFieldName(key, typeDef: f, privateField: true);
-      sb.write('this.$privateFieldName = $publicFieldName;\n');
+      sb.write('$privateFieldName = $publicFieldName');
+      sb.write(index == length ? ';\n' : ',\n');
     });
-    sb.write('}');
     return sb.toString();
   }
 
@@ -399,7 +399,7 @@ class ClassDefinition {
       // sb.write('.fromJson(Map<String, dynamic> json) => $name(\n');
       fields.keys.forEach((k) {
         sb.write(
-            '\t\t${fields[k].jsonParseExpressionFinal(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+            '\t\t${fields[k].jsonParseExpressionFinal(k, false, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
       sb.write('\t);');
       sb.write('}');
@@ -409,7 +409,7 @@ class ClassDefinition {
       sb.write('.fromJson(Map<String, dynamic> json) {\n');
       fields.keys.forEach((k) {
         sb.write(
-            '\t\t${fields[k].jsonParseExpression(k, privateFields, newKeyword, thisKeyword, collectionLiterals)}\n');
+            '\t\t${fields[k].jsonParseExpression(k, false, newKeyword, thisKeyword, collectionLiterals)}\n');
       });
       sb.write('\t}');
       return sb.toString();
