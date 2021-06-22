@@ -1,0 +1,48 @@
+{
+	"registrations": [
+		{
+			"services": [
+				{
+					"dati": {
+						"componenti": null,
+						"superficie": null
+					}
+				}
+			]
+		},
+		{
+			"services": [
+				{
+					"dati": {
+						"componenti": [],
+						"superficie": []
+					}
+				}
+			]
+		},
+		{
+			"services": [
+				{
+					"dati": {
+						"componenti": [
+							{
+								"data_inizio": "2015-01-01",
+								"data_fine": null,
+								"valore": "4",
+								"ultimo_aggiornamento": "2016-02-17 04:45:01"
+							}
+						],
+						"superficie": [
+							{
+								"data_inizio": "2015-01-01",
+								"data_fine": null,
+								"valore": "100",
+								"ultimo_aggiornamento": "2016-02-17 05:30:00"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
